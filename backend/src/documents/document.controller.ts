@@ -15,6 +15,8 @@ import {
   Res,
   NotFoundException,
 } from '@nestjs/common';
+import axios from 'axios';
+import * as mime from 'mime-types';
 import { DocumentService } from './document.service';
 import { CreateDocumentDto } from './dto/create-document.dto';
 import { UpdateDocumentDto } from './dto/create-document.dto';
@@ -63,7 +65,7 @@ export class DocumentController {
 
     console.log('Uploading file to Cloudinary...');
     try {
-      fileUrl = await saveFileToCloudinary(file);
+      fileUrl = await saveFileToCloudinary(file, file.originalname);
     } catch (error) {
       console.error('Error while uploading to Cloudinary:', error);
       throw new Error('Failed to upload file to Cloudinary');
@@ -75,6 +77,7 @@ export class DocumentController {
       createDocumentDto,
       fileUrl,
       targetUserId,
+      file.originalname,
     );
   }
 
@@ -140,7 +143,7 @@ export class DocumentController {
     if (file) {
       console.log('Uploading updated file to Cloudinary...');
       try {
-        newFileUrl = await saveFileToCloudinary(file);
+        newFileUrl = await saveFileToCloudinary(file, file.originalname);
       } catch (error) {
         console.error(
           'Error while uploading updated file to Cloudinary:',
@@ -169,25 +172,55 @@ export class DocumentController {
 
     return await this.documentService.remove(id, user);
   }
-
   @Get('download/:id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   async downloadDocument(
     @Param('id') id: number,
-    @Req() req: Request,
+    @Req() req: any,
     @Res() res: Response,
   ): Promise<void> {
     const user = req.user;
+
+    if (!user || !user.id) {
+      throw new UnauthorizedException(
+        'User information is missing or incorrect',
+      );
+    }
+
     const document = await this.documentService.findOne(id, user);
     if (!document) {
       throw new NotFoundException('Document not found');
     }
 
+    // Проверка прав пользователя на доступ к документу
     if (user.role !== 'admin' && document.uploadedBy.id !== user.id) {
       throw new ForbiddenException(
         'Access denied. You can only download your own documents.',
       );
     }
 
-    res.redirect(document.filepath);
+    try {
+      // Получаем тип MIME на основе расширения файла
+      const mimeType =
+        mime.lookup(document.filename) || 'application/octet-stream';
+
+      // Используем axios для загрузки файла по URL, который возвращает Cloudinary
+      const response = await axios.get(document.filepath, {
+        responseType: 'stream',
+      });
+
+      // Устанавливаем заголовки для корректной обработки любого файла
+      res.setHeader('Content-Type', mimeType);
+      res.setHeader(
+        'Content-Disposition',
+        `attachment; filename="${document.filename}"`,
+      );
+
+      // Передаем поток данных напрямую в ответ
+      response.data.pipe(res);
+    } catch (error) {
+      console.error('Error downloading file from Cloudinary:', error);
+      throw new NotFoundException('Failed to download document');
+    }
   }
 }
