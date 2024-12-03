@@ -2,8 +2,8 @@ import { Controller, Get } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-  @Get() // Обрабатываем запрос к корневому маршруту
+  @Get()
   getHome(): string {
-    return 'Welcome to the Tax Consulting App API!';
+    return 'Welcome to the Guitar Lessons App API!';
   }
 }

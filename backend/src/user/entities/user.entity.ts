@@ -3,6 +3,7 @@ import { Session } from '../../auth/enteties/session.entity';
 import { Document } from '../../documents/enteties/document.entity';
 import { Booking } from '../../booking/entities/booking.entity';
 import { Testimonial } from 'src/testimonial/entities/testimonial.entity';
+import { Message } from '../../chat/entities/message.entity';
 
 @Entity('users') // Декоратор, обозначающий, что этот класс представляет сущность базы данных
 export class User {
@@ -35,4 +36,10 @@ export class User {
 
   @OneToMany(() => Testimonial, (testimonial) => testimonial.user)
   testimonials: Testimonial[]; // Связь "Один ко Многим" с отзывами
+
+  @OneToMany(() => Message, (message) => message.sender)
+  sentMessages: Message[];
+
+  @OneToMany(() => Message, (message) => message.receiver)
+  receivedMessages: Message[];
 }
