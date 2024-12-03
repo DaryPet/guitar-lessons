@@ -1,0 +1,31 @@
+.homePage {
+  background-color: #aac2e7;
+}
+
+.serviceSection,
+.teamSection,
+.testimonialsSection {
+  padding: 60px 40px;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.serviceGrid,
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.serviceGrid {
+  padding: 20px 0;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}

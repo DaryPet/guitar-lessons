@@ -1,0 +1,32 @@
+.aboutContainer {
+  margin: 0 auto;
+  padding: 40px;
+  background-image: url("../../assets/images/entrepreneur-working-with-bills.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  z-index: 0;
+}
+.aboutContainer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(39, 36, 36, 0.5);
+  z-index: -1;
+}
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #9db5d1;
+}
+
+.description {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 2.2rem;
+  color: white;
+  text-align: center;
+}
