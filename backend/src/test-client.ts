@@ -18,7 +18,7 @@ import { io } from 'socket.io-client';
 
 // Предположим, что вы получили токен после логина, вставьте его сюда.
 const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1pa2FtaWtlIiwic3ViIjoxLCJyb2xlIjoidXNlciIsImlhdCI6MTczMzI2MDIxMiwiZXhwIjoxNzMzMjYxMTEyfQ.-9UDhH0Wot_hVViPEjpSB8n1LPD3JLj1X3WrxbyCLBI';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1pa2FtaWtlIiwic3ViIjoxLCJyb2xlIjoidXNlciIsImlhdCI6MTczMzMwNjQzMiwiZXhwIjoxNzMzMzA3MzMyfQ.furwQL0JEV8Pd26fApugDBmqErN4PkVjyfJOw-yau5E';
 // Подключение к WebSocket серверу с использованием токена
 const socket = io('http://localhost:3001', {
   transports: ['websocket'], // Используем только websocket
@@ -31,7 +31,7 @@ const socket = io('http://localhost:3001', {
 socket.on('connect', () => {
   console.log('Успешное подключение к серверу');
   // Отправляем тестовое сообщение
-  socket.emit('sendMessage', { receiverId: 5, content: 'poij be!' });
+  socket.emit('sendMessage', { receiverId: 2, content: 'oihvhj be!' });
 });
 
 // Когда приходит новое сообщение
