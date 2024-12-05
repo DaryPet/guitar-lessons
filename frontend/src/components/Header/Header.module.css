@@ -22,14 +22,16 @@
 .logo {
   font-size: 1.8em;
   font-weight: bold;
+  /* text-align: center; */
 }
 .logoImage {
   width: 56px;
 }
 
 .logo a {
-  color: black;
+  color: red;
   text-decoration: none;
+  align-items: center;
 }
 
 .logo a:hover {

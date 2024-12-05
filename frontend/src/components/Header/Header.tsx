@@ -1,7 +1,7 @@
 import React from "react";
 import Navigation from "../Navigation/Navigation";
 import styles from "./Header.module.css";
-import logo from "../../assets/icons/guitar_lessons_logo_transparent.png";
+import logo from "../../assets/icons/guitar_lessons_logo_transparent (1).png";
 
 const Header: React.FC = () => {
   return (
