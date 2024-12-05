@@ -1,12 +1,20 @@
 import React from "react";
 import Navigation from "../Navigation/Navigation";
 import styles from "./Header.module.css";
+import logo from "../../assets/icons/guitar_lessons_logo_transparent.png";
 
 const Header: React.FC = () => {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <a href="/">FortuneTax Solutions</a>
+        <a href="/">
+          <img
+            src={logo}
+            alt="Guitar Lessons Logo"
+            className={styles.logoImage}
+          />
+          Alex Ivanenko
+        </a>
       </div>
       <Navigation />
     </header>

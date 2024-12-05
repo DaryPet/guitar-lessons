@@ -128,7 +128,7 @@ const Booking: React.FC<BookingProps> = ({ prefillData }) => {
   });
 
   return (
-    <div className={styles.bookingSection}>
+    <div className={styles.bookingSection} id="booking">
       <h2>Book a Consultation</h2>
       <form className={styles.bookingForm} onSubmit={formik.handleSubmit}>
         <div className={styles.inputGroup}>

@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import styles from "./HomePage.module.css";
 import AboutUs from "../../components/About/AboutUs";
-import ServiceList from "../../components/Service/ServiceList";
-import TeamList from "../../components/Team/TeamList";
 import InfoCardsList from "../../components/InfoCards/InfoCardsList";
 import Testimonials from "../../components/Testimonials/Testimonials";
 import { useLocation } from "react-router-dom";
 import Booking from "../../components/Booking/Booking";
+import VideoSection from "../../components/Video/VideoSection";
 
 const HomePage: React.FC = () => {
   const location = useLocation();
@@ -28,16 +27,16 @@ const HomePage: React.FC = () => {
       <section id="about" className={styles.section}>
         <InfoCardsList />
       </section>
-      <section id="services" className={styles.section}>
+      {/* <section id="services" className={styles.section}>
         <p className={styles.sectionTitle}>Our service</p>
         <ServiceList />
-      </section>
+      </section> */}
       <section id="team" className={styles.section}>
-        <p className={styles.sectionTitle}>Our team</p>
-        <TeamList />
+        <p className={styles.sectionTitle}>Video</p>
+        <VideoSection />
       </section>
       <section id="testimonials" className={styles.section}>
-        <p className={styles.sectionTitle}>Testimonials</p>
+        {/* <p className={styles.sectionTitle}>Testimonials</p> */}
         <Testimonials />
       </section>
       <section id="booking" className={styles.section}>

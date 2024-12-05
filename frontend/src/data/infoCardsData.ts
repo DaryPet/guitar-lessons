@@ -7,25 +7,25 @@ const infoCardsData = [
   {
     title: "Years of Experience",
     description:
-      "With over 25 years of industry experience, we provide expert tax services to help you stay compliant and optimize your finances.",
+      "With over 20 years of experience teaching guitar, I help students of all levels master the art of playing. From classical to electric, you are in great hands.",
     iconUrl: rocket,
   },
   {
-    title: "Expert Team",
+    title: "Personalized Lessons",
     description:
-      "Our team consists of certified tax professionals who are dedicated to providing personalized solutions for every client.",
+      "Every student is unique, and so is every lesson. We create custom learning plans that cater to your personal style, pace, and musical interests.",
     iconUrl: experience,
   },
   {
-    title: "Worldwide Clients",
+    title: "Online & In-Person Flexibility",
     description:
-      "We serve clients from around the globe, providing efficient tax planning strategies no matter where you are located.",
+      "Learn guitar wherever you feel comfortable — whether that’s in your own living room online or in a dedicated lesson space. Flexibility is key!",
     iconUrl: globe,
   },
   {
-    title: "24/7 Full Support",
+    title: "Passion for Music",
     description:
-      "Our customer support team is available 24/7 to assist you with any tax-related inquiries you may have.",
+      "More than just lessons, our goal is to ignite a lifelong passion for music. We focus on inspiring creativity and bringing out the best in every student.",
     iconUrl: hands,
   },
 ];

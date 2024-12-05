@@ -33,17 +33,17 @@ const Navigation: React.FC = () => {
             About
           </button>
         </li>
-        <li className={styles.navItem}>
+        {/* <li className={styles.navItem}>
           <button
             onClick={() => handleScroll("services")}
             className={styles.link}
           >
             Services
           </button>
-        </li>
+        </li> */}
         <li className={styles.navItem}>
-          <button onClick={() => handleScroll("team")} className={styles.link}>
-            Our Team
+          <button onClick={() => handleScroll("video")} className={styles.link}>
+            Video
           </button>
         </li>
         <li className={styles.navItem}>

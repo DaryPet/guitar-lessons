@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   width: 100%;
-  background-color: #ffffff;
+  background-color: #fafafa;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   display: flex;
@@ -12,7 +12,7 @@
 }
 .headerContainer {
   width: 100%;
-  background-color: #ffffff;
+  background-color: #fafafa;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
@@ -23,9 +23,12 @@
   font-size: 1.8em;
   font-weight: bold;
 }
+.logoImage {
+  width: 56px;
+}
 
 .logo a {
-  color: #1d5396;
+  color: black;
   text-decoration: none;
 }
 

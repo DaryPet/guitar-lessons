@@ -23,7 +23,8 @@
 .link {
   font-size: 1rem;
   font-weight: 500;
-  color: #1d5396;
+  /* color: #1d5396; */
+  color: black;
   text-decoration: none;
   background: none;
   border: none;
@@ -32,7 +33,7 @@
   padding: 10px 15px;
 }
 
-.link:hover {
+/* .link:hover {
   color: #4a90e2;
   transform: scale(1.1);
 }
@@ -40,4 +41,15 @@
 .link:focus {
   outline: none;
   border-bottom: 2px solid #4a90e2;
+} */
+.link:hover {
+  color: #555555; /* Цвет при наведении - светло-серый */
+  /* text-decoration: underline;  */
+  box-shadow: 0px 4px 8px rgba(237, 2, 2, 0.2);
+  transform: scale(1.1);
+}
+
+.link:focus {
+  outline: none;
+  border-bottom: 2px solid #e80303;
 }

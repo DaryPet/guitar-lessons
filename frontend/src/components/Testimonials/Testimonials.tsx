@@ -26,7 +26,7 @@ const Testimonials: React.FC = () => {
 
   return (
     <div className={styles.testimonialsSection}>
-      <h2>What Our Clients Say</h2>
+      <h2>What My Students Say</h2>
       {loading && <p className={styles.loadingText}>Loading testimonials...</p>}
       {error && <p className={styles.errorMessage}>{error}</p>}
       <Swiper

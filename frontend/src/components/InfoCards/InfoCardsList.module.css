@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  padding: 40px 20px;
+  padding: 80px 20px;
   background-color: #f8f4f0;
   flex-wrap: wrap;
 }
@@ -20,11 +20,12 @@
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px rgba(205, 90, 90, 0.2);
 }
 
 .iconWrapper {
-  background-color: #aac2e7;
+  background-color: black;
+  fill: whitesmoke;
   padding: 10px;
   border-radius: 50%;
   width: 60px;
@@ -51,7 +52,7 @@
 .title {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #333;
+  color: #eb1f1f;
   margin-bottom: 10px;
 }
 
