@@ -27,6 +27,7 @@ import { UserModule } from '../user/user.module';
 import { Message } from './entities/message.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
+import { ChatController } from './chat.controller';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { ConfigModule } from '@nestjs/config';
     JwtModule.register({}),
     ConfigModule,
   ],
+  controllers: [ChatController],
   providers: [ChatService, ChatGateway],
   exports: [ChatService],
 })
