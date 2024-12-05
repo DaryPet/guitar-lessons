@@ -217,7 +217,8 @@ export class DocumentController {
       );
 
       // Передаем поток данных напрямую в ответ
-      response.data.pipe(res);
+      // response.data.pipe(res);
+      (response.data as NodeJS.ReadableStream).pipe(res);
     } catch (error) {
       console.error('Error downloading file from Cloudinary:', error);
       throw new NotFoundException('Failed to download document');
