@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Booking from "./components/Booking/Booking";
 import Loader from "../src/components/Loader/Loader";
+import Chat from "./components/Chat/Chat";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 
@@ -40,6 +41,10 @@ export default function App() {
             <Route
               path="/user-profile"
               element={user ? <UserPage /> : <Navigate to="/login" replace />}
+            />
+            <Route
+              path="/chat"
+              element={user ? <Chat /> : <Navigate to="/login" replace />}
             />
             <Route
               path="/admin"

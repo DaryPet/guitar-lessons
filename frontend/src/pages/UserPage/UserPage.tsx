@@ -4,6 +4,7 @@ import Booking from "../../components/Booking/Booking";
 import { useSelector } from "react-redux";
 import { selectAuthUser } from "../../redux/slices/authSlice";
 import styles from "./UserPage.module.css";
+import Chat from "../../components/Chat/Chat";
 
 const UserPage: React.FC = () => {
   const user = useSelector(selectAuthUser);
@@ -25,6 +26,10 @@ const UserPage: React.FC = () => {
             phone: user?.phone,
           }}
         />
+      </div>
+      <div className={styles.sectionChat}>
+        <h2 className={styles.sectionTitle}>Chat with Admin</h2>
+        <Chat /> {/* Добавляем компонент чата */}
       </div>
     </div>
   );
