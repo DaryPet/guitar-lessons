@@ -1,19 +1,3 @@
-// import { Controller, Get, Query } from '@nestjs/common';
-// import { ChatService } from './chat.service';
-// import { Message } from './entities/message.entity';
-
-// @Controller('chat')
-// export class ChatController {
-//   constructor(private chatService: ChatService) {}
-
-//   @Get('history')
-//   async getChatHistory(
-//     @Query('user1') userId1: number,
-//     @Query('user2') userId2: number,
-//   ): Promise<Message[]> {
-//     return await this.chatService.getChatHistory(userId1, userId2);
-//   }
-// }
 import {
   Controller,
   Get,
@@ -25,34 +9,37 @@ import {
 } from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { Message } from './entities/message.entity';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard'; // Предположительно ваш guard для проверки JWT
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Request } from 'express';
 
 @Controller('chat')
 export class ChatController {
   constructor(private chatService: ChatService) {}
 
-  // Эндпоинт для получения истории чата между двумя пользователями
-  @UseGuards(JwtAuthGuard) // Защита с помощью JWT (доступен только для залогиненных пользователей)
+  @UseGuards(JwtAuthGuard)
   @Get('history')
   async getChatHistory(
-    @Query('user1') userId1: number,
-    @Query('user2') userId2: number,
-    @Req() request: Request, // Информация о текущем пользователе из JWT
+    @Query('user1') userId1: string,
+    @Query('user2') userId2: string,
+    @Req() request: Request,
   ): Promise<Message[]> {
-    const currentUser = request.user as any; // Извлечение текущего пользователя
+    const currentUser = request.user as any;
+
+    const user1 = parseInt(userId1, 10);
+    const user2 = parseInt(userId2, 10);
+
     if (
-      currentUser.role !== 'admin' &&
-      currentUser.id !== userId1 &&
-      currentUser.id !== userId2
+      currentUser.id !== user1 &&
+      currentUser.id !== user2 &&
+      currentUser.role !== 'admin'
     ) {
       throw new Error('Unauthorized access to chat history');
     }
-    return await this.chatService.getChatHistory(userId1, userId2);
+
+    return await this.chatService.getChatHistory(user1, user2);
   }
 
-  // Эндпоинт для отправки сообщения (отправка доступна только для зарегистрированных пользователей и админа)
-  @UseGuards(JwtAuthGuard) // Защита с помощью JWT (доступен только для залогиненных пользователей)
+  @UseGuards(JwtAuthGuard)
   @Post('send')
   async sendMessage(
     @Body() payload: { receiverId: number; content: string },

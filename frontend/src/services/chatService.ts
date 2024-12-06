@@ -1,4 +1,3 @@
-// chatService.ts
 import axios from "axios";
 import { CHAT_HISTORY_URL, CHAT_SEND_MESSAGE_URL } from "../config/apiConfig";
 import { createAsyncThunk } from "@reduxjs/toolkit";
