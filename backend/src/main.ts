@@ -11,9 +11,8 @@ async function bootstrap() {
 
   app.enableCors({
     origin: [
-      '*',
-      // 'http://localhost:3000',
-      // 'https://tax-consulting-app-git-main-darya-petrenkos-projects.vercel.app',
+      'http://localhost:3000',
+      'https://tax-consulting-app-git-main-darya-petrenkos-projects.vercel.app',
     ],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],

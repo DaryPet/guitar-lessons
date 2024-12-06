@@ -4,6 +4,7 @@ import testimonialReducer from "./slices/testimonialSlice";
 import bookingReducer from "./slices/bookingSlice";
 import authReducer from "./slices/authSlice";
 import filtersReducer from "./slices/filterSlice";
+import chatReducer from "./slices/chatSlice";
 import { initializeAuthState } from "./operations";
 import {
   persistStore,
@@ -33,6 +34,7 @@ export const store = configureStore({
     booking: bookingReducer,
     document: documentReducer,
     filters: filtersReducer,
+    chat: chatReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -40,8 +42,8 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-  devTools: process.env.NODE_ENV !== "production",
-  // devTools: process.env.NODE_ENV !== "development",
+  // devTools: process.env.NODE_ENV !== "production",
+  devTools: process.env.NODE_ENV !== "development",
 });
 export const persistor = persistStore(store);
 
