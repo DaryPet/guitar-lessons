@@ -57,6 +57,7 @@ export default function App() {
               }
             >
               <Route path="users" element={<AllUsers />} />
+
               <Route path="bookings" element={<AllBookings />} />
               <Route path="documents" element={<AllDocuments />} />
               <Route
@@ -64,6 +65,7 @@ export default function App() {
                 element={<UsersDocuments />}
               />
             </Route>
+            <Route path="chat" element={<Chat />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
