@@ -5,6 +5,7 @@ import UserDocuments from "../../components/UserDocuments/UserDocuments";
 // import { selectAuthUser } from "../../redux/slices/authSlice";
 import styles from "./UserPage.module.css";
 import Chat from "../../components/Chat/Chat";
+import ChatHistory from "../../components/Chat/ChatHistory";
 
 const UserPage: React.FC = () => {
   // const user = useSelector(selectAuthUser);
@@ -29,7 +30,8 @@ const UserPage: React.FC = () => {
       </div> */}
       <div className={styles.sectionChat}>
         <h2 className={styles.sectionTitle}>Chat with Admin</h2>
-        <Chat /> {/* Добавляем компонент чата */}
+        <Chat />
+        <ChatHistory />
       </div>
     </div>
   );

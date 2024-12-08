@@ -46,7 +46,7 @@ const AllUsers: React.FC = () => {
 
   return (
     <section className={styles.allUsersContainer}>
-      <h2>All Users</h2>
+      <h2 className={styles.allUsersTitle}>All Students</h2>
       <input
         type="text"
         value={searchTerm}
