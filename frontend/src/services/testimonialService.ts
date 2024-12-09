@@ -20,7 +20,7 @@ export const addTestimonialApi = async (
 
 export const fetchAllTestimonialsApi = async (): Promise<any> => {
   try {
-    console.log("Fetching testimonials from URL:", TESTIMONIALS_URL);
+    // console.log("Fetching testimonials from URL:", TESTIMONIALS_URL);
 
     const response = await fetch(TESTIMONIALS_URL, {
       method: "GET",
@@ -38,7 +38,7 @@ export const fetchAllTestimonialsApi = async (): Promise<any> => {
     }
 
     const data = await response.json();
-    console.log("Fetched testimonials data:", data);
+    // console.log("Fetched testimonials data:", data);
 
     if (!Array.isArray(data)) {
       throw new Error("Fetched data is not an array as expected.");

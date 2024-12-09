@@ -24,16 +24,16 @@ export const registerUser = createAsyncThunk(
   ) => {
     try {
       // \\\\\\\\\\\\\\
-      console.log("Данные для регистрации:", {
-        name,
-        username,
-        email,
-        password,
-      });
+      // console.log("Данные для регистрации:", {
+      //   name,
+      //   username,
+      //   email,
+      //   password,
+      // });
 
       const response = await register(name, username, email, password);
       // \\\\\\\\\\\\\\\\\\\
-      console.log("Ответ от сервера:", response);
+      // console.log("Ответ от сервера:", response);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue("Error during registration");
@@ -49,7 +49,7 @@ export const loginUsers = createAsyncThunk(
   ) => {
     try {
       const response = await login(username, password);
-      console.log(response);
+      // console.log(response);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue("Error while logging in");
@@ -61,13 +61,13 @@ export const logoutUser = createAsyncThunk(
   "auth/logoutUser",
   async (_, { dispatch, rejectWithValue }) => {
     try {
-      console.log("Начало выполнения операции logout");
+      // console.log("Начало выполнения операции logout");
 
       await logout();
       localStorage.removeItem("access_token");
       dispatch(resetAuthState());
 
-      console.log("Логаут завершен");
+      // console.log("Логаут завершен");
       return;
     } catch (error) {
       console.error("Ошибка при выполнении logout:", error);
@@ -116,10 +116,10 @@ export const refreshUserToken = createAsyncThunk(
       // Сохраняем новый токен в localStorage
       localStorage.setItem("access_token", updatedToken);
 
-      console.log(
-        "Токен успешно обновлён и сохранён в localStorage:",
-        updatedToken
-      );
+      // console.log(
+      //   "Токен успешно обновлён и сохранён в localStorage:",
+      //   updatedToken
+      // );
 
       return response.data;
     } catch (error) {
