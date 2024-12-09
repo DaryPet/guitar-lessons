@@ -32,11 +32,15 @@ import { ServerOptions } from 'socket.io';
 
 class SocketIoAdapter extends IoAdapter {
   createIOServer(port: number, options?: ServerOptions) {
-    const server = super.createIOServer(port, options);
-    server.origins([
-      'http://localhost:3000',
-      'https://guitar-lessons-px2t-git-main-darya-petrenkos-projects.vercel.app',
-    ]);
+    const server = super.createIOServer(port, {
+      cors: {
+        origin: [
+          'http://localhost:3000',
+          'https://guitar-lessons-px2t-git-main-darya-petrenkos-projects.vercel.app',
+        ],
+        credentials: true,
+      },
+    });
     return server;
   }
 }
