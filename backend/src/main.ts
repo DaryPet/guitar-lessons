@@ -12,7 +12,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:3000',
-      'https://guitar-lessons-dhbbzrlei-darya-petrenkos-projects.vercel.app/',
+      'https://guitar-lessons-px2t-git-main-darya-petrenkos-projects.vercel.app',
     ],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
