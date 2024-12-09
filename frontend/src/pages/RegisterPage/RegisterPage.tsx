@@ -20,7 +20,7 @@ const RegisterPage: React.FC = () => {
       const response = await dispatch(
         registerUser({ name, username, email, password })
       ).unwrap();
-      console.log("Ответ от сервера:", response);
+      // console.log("Ответ от сервера:", response);
 
       if (response.role === "user") {
         navigate("/user-profile");

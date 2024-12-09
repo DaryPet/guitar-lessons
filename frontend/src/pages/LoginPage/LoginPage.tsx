@@ -15,10 +15,10 @@ const LoginPage: React.FC = () => {
 
   const handleLogin = async () => {
     try {
-      console.log("Запуск handleLogin");
+      // console.log("Запуск handleLogin");
       await dispatch(loginUsers({ username, password })).unwrap();
       const userResponse = await dispatch(fetchCurrentUser()).unwrap();
-      console.log("Логин прошел успешно");
+      // console.log("Логин прошел успешно");
       if (userResponse.role === "admin") {
         navigate("/admin");
       } else {

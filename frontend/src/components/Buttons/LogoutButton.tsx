@@ -16,10 +16,10 @@ const LogoutButton = () => {
 
     setLogoutInProgress(true);
     try {
-      console.log("Отправка запроса на logout...");
+      // console.log("Отправка запроса на logout...");
       await dispatch(logoutUser()).unwrap();
 
-      console.log("Логаут успешно выполнен");
+      // console.log("Логаут успешно выполнен");
 
       navigate("/login");
     } catch (error) {

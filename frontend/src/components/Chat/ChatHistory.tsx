@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import socketIOClient from "socket.io-client";
 import { BASE_URL } from "../../config/apiConfig";
 import { getAllUsers } from "../../services/authService";
 import {
@@ -8,9 +9,7 @@ import {
   Message,
   User,
 } from "../../services/filterChatService";
-
-import styles from "./ChatHistory.module.css";
-import Loader from "../Loader/Loader";
+import styles from "./ChatHistoryAdmin.module.css";
 
 const convertLinks = (text: string): React.ReactNode => {
   const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -37,12 +36,56 @@ const convertLinks = (text: string): React.ReactNode => {
 const ChatHistory: React.FC = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [newMessage, setNewMessage] = useState<string>("");
+  const [socket, setSocket] = useState<ReturnType<
+    typeof socketIOClient
+  > | null>(null);
   const [adminId, setAdminId] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const messagesPerPage = 10;
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("access_token");
+
+    if (!storedToken) {
+      // console.error("Authentication token is missing.");
+      setError("Authentication token is missing");
+      return;
+    }
+
+    const newSocket = socketIOClient(BASE_URL, {
+      auth: {
+        token: storedToken,
+      },
+    });
+
+    setSocket(newSocket);
+
+    newSocket.on("connect", () => {
+      // console.log("Connected to WebSocket server");
+    });
+
+    newSocket.on("disconnect", () => {
+      // console.log("Disconnected from WebSocket server");
+    });
+
+    newSocket.on("newMessage", (message: Message) => {
+      setMessages((prevMessages) => {
+        const isDuplicate = prevMessages.some(
+          (m) => m.id === message.id && m.timestamp === message.timestamp
+        );
+        return isDuplicate ? prevMessages : [...prevMessages, message];
+      });
+    });
+
+    return () => {
+      newSocket.disconnect();
+      setSocket(null);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchAdminId = async () => {
@@ -56,7 +99,7 @@ const ChatHistory: React.FC = () => {
         }
       } catch (error) {
         setError("Error while fetching user data");
-        console.error("Error while fetching users:", error);
+        // console.error("Error while fetching users:", error);
       }
     };
 
@@ -141,10 +184,40 @@ const ChatHistory: React.FC = () => {
     }
   };
 
+  const handleSendMessage = () => {
+    if (newMessage.trim() !== "") {
+      if (socket && adminId !== null) {
+        socket.emit("sendMessage", {
+          content: newMessage,
+          senderId: user?.id,
+          receiverId: adminId,
+        });
+
+        setNewMessage("");
+      } else {
+        console.error(
+          "WebSocket connection is not established or admin not found"
+        );
+        setError("Failed to send message. Admin not found.");
+      }
+    }
+  };
+
   return (
     <div className={styles.chatContainer}>
+      <div className={styles.chatInput}>
+        <input
+          type="text"
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          placeholder="Type a message..."
+        />
+        <button onClick={handleSendMessage} disabled={!newMessage.trim()}>
+          Send
+        </button>
+      </div>
       <div className={styles.chatHistory}>
-        {loading && <Loader />}
+        {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
         {currentMessages.length === 0 && !loading && <p>No messages</p>}
         {currentMessages.map((message) => (
@@ -156,7 +229,9 @@ const ChatHistory: React.FC = () => {
                 : styles.otherMessage
             }`}
           >
-            <strong>{message.sender.id === user?.id ? "You" : "Admin"}:</strong>{" "}
+            <strong>
+              {message.sender.id === user?.id ? "You" : message.sender.name}:
+            </strong>{" "}
             {convertLinks(message.message_content)}
             <span className={styles.timestamp}>
               {new Date(message.timestamp).toLocaleString()}

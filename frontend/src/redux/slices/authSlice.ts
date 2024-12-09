@@ -135,7 +135,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.status = "succeeded";
         localStorage.setItem("access_token", access_token);
-        console.log("Token successfully refreshed");
+        // console.log("Token successfully refreshed");
       })
       .addCase(refreshUserToken.rejected, (state, action) => {
         state.status = "failed";

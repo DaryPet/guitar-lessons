@@ -1,37 +1,47 @@
-import React from "react";
-import UserDocuments from "../../components/UserDocuments/UserDocuments";
-// import Booking from "../../components/Booking/Booking";
-// import { useSelector } from "react-redux";
-// import { selectAuthUser } from "../../redux/slices/authSlice";
+import React, { useState } from "react";
 import styles from "./UserPage.module.css";
-import Chat from "../../components/Chat/Chat";
-import ChatHistory from "../../components/Chat/ChatHistory";
+import { Outlet } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import GifAnimation from "../../components/GifAnimation/GifAnimation";
 
 const UserPage: React.FC = () => {
-  // const user = useSelector(selectAuthUser);
+  const [isGifVisible, setIsGifVisible] = useState(true);
 
+  const handleMenuClick = () => {
+    setIsGifVisible(false);
+  };
   return (
-    <div className={styles.container}>
-      <div className={styles.sectionDocuments}>
-        <h2 className={styles.sectionTitle}>My Documents</h2>
-        <UserDocuments />
+    <div className={styles.userPageContainer}>
+      <h1 className={styles.userPageTitle}>Student Dashboard</h1>
+      <div className={styles.linkSection}>
+        <NavLink
+          to="documents"
+          className={({ isActive }) =>
+            isActive
+              ? `${styles.userLink} ${styles.activeUserLink}`
+              : styles.userLink
+          }
+          onClick={handleMenuClick}
+        >
+          My Documents & Notes
+        </NavLink>
+        <NavLink
+          to="chat"
+          className={({ isActive }) =>
+            isActive
+              ? `${styles.userLink} ${styles.activeUserLink}`
+              : styles.userLink
+          }
+          onClick={handleMenuClick}
+        >
+          Chat with Teacher
+        </NavLink>
       </div>
 
-      {/* <div className={styles.sectionBooking}>
-        <h2 className={styles.sectionTitle}>Book Consultation</h2>
-
-        <Booking
-          prefillData={{
-            name: user?.name,
-            email: user?.email,
-            phone: user?.phone,
-          }}
-        />
-      </div> */}
-      <div className={styles.sectionChat}>
-        <h2 className={styles.sectionTitle}>Chat with Admin</h2>
-        <Chat />
-        <ChatHistory />
+      <div className={styles.outletSection}>
+        {isGifVisible && <GifAnimation />}
+        <div className={styles.outletSection}></div>
+        <Outlet />
       </div>
     </div>
   );
