@@ -64,5 +64,5 @@
     "@types/redux-persist": "^4.0.0",
     "@types/socket.io-client": "^1.4.36"
   },
-  "proxy": "https://tax-consulting-app.onrender.com"
+  "proxy": "https://guitar-lessons-i99p.onrender.com"
 }
