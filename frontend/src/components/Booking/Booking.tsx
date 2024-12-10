@@ -31,6 +31,15 @@ interface BookingProps {
 
 Modal.setAppElement("#root");
 
+const getFormattedDateForMunich = (date: Date) => {
+  const munichOffset = 60; // CET: GMT+1
+  const summerOffset = 120; // CEST: GMT+2 (летнее время)
+  const offset = date.getTimezoneOffset() === -60 ? munichOffset : summerOffset;
+
+  const munichDate = new Date(date.getTime() + offset * 60000); // Корректируем смещение
+  return munichDate.toISOString().split("T")[0]; // Приводим к формату YYYY-MM-DD
+};
+
 const Booking: React.FC<BookingProps> = ({ prefillData }) => {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -53,7 +62,7 @@ const Booking: React.FC<BookingProps> = ({ prefillData }) => {
 
   useEffect(() => {
     if (date) {
-      dispatch(fetchAvailableSlots(date.toISOString().split("T")[0]));
+      dispatch(fetchAvailableSlots(getFormattedDateForMunich(date)));
     }
   }, [date, dispatch]);
 
@@ -113,7 +122,7 @@ const Booking: React.FC<BookingProps> = ({ prefillData }) => {
           name: values.name,
           email: values.email,
           phone: values.phone,
-          service: "General Consultation",
+          service: "Trial Lesson",
           date: date.toISOString().split("T")[0],
           time: selectedTime,
         };
@@ -185,10 +194,11 @@ const Booking: React.FC<BookingProps> = ({ prefillData }) => {
             }}
             value={date}
             selectRange={false}
-            tileDisabled={({ date }) => {
-              const day = date.getDay();
-              return day === 0 || day === 6;
-            }}
+            // tileDisabled={({ date }) => {
+            //   const day = date.getDay();
+            //   return day === 0 || day === 6;
+            // }}
+            tileDisabled={() => false}
           />
           {dateError && (
             <span className={styles.errorMessage}>{dateError}</span>

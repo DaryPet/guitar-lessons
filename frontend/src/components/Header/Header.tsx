@@ -13,7 +13,7 @@ const Header: React.FC = () => {
             alt="Guitar Lessons Logo"
             className={styles.logoImage}
           />
-          Alex Ivanenko
+          Lex Ivanenko
         </a>
       </div>
       <Navigation />
