@@ -34,10 +34,7 @@ class SocketIoAdapter extends IoAdapter {
   createIOServer(port: number, options?: ServerOptions) {
     const server = super.createIOServer(port, {
       cors: {
-        origin: [
-          'http://localhost:3000',
-          'https://guitar-lessons-px2t-git-main-darya-petrenkos-projects.vercel.app',
-        ],
+        origin: ['http://localhost:3000', 'guitar-lessons-px2t.vercel.app'],
         credentials: true,
       },
     });
@@ -57,7 +54,7 @@ async function bootstrap() {
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   });
 
-  app.useWebSocketAdapter(new SocketIoAdapter(app)); // Установка Socket.io адаптера
+  app.useWebSocketAdapter(new SocketIoAdapter(app));
 
   await app.listen(process.env.PORT || 3001);
 }
