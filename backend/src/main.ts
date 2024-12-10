@@ -34,9 +34,13 @@ class SocketIoAdapter extends IoAdapter {
   createIOServer(port: number, options?: ServerOptions) {
     const server = super.createIOServer(port, {
       cors: {
-        origin: ['http://localhost:3000', 'guitar-lessons-px2t.vercel.app'],
+        origin: [
+          'http://localhost:3000',
+          'https://guitar-lessons-px2t.vercel.app',
+        ],
         credentials: true,
       },
+      transports: ['websocket'],
     });
     return server;
   }
