@@ -4,7 +4,6 @@ import {
   FaFacebookF,
   FaTelegramPlane,
   FaWhatsapp,
-  FaLinkedinIn,
   FaEnvelope,
   FaPhone,
   FaInstagram,
@@ -45,7 +44,7 @@ const Footer: React.FC = () => {
           <p>
             <FaEnvelope className={styles.icon} />
             <a href="mailto:guitarlessons.munich@gmail.com">
-              support@guitarlessons.com
+              guitarlessons.munich@gmail.com
             </a>
           </p>
           <p>
