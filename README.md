@@ -1,36 +1,38 @@
-# Project Name: TAX consulting App
+# Project Name: Guitar Lessons App
 
 ## Overview
 
-The **Smart Booking & Document Management System** is a web application that enables users to easily manage documents, book meetings, and interact with the admin. This project is designed with an intuitive user interface, making it suitable for both registered and unregistered users who need to book appointments. The system provides tools for document management, meeting booking with automatic field filling, and administrative access to oversee all operations.
+The **Guitar Lessons App with  Personal login, access to documents, notes, and chat with teacher** is a web application that enables students to easily manage lessons, notes, chat with teacher in a real time, send homework, kinks wit video, etc. This project is designed with an intuitive user interface, making it suitable for both registered and unregistered users who wants to learn guitar. The system provides tools for document/music notes management, managin lessons with automatic field filling, and administrative access for theacter to oversee all operations.
 
 ## Features
 
 ### 1. User Management
 
-- **Registration and Login**: Users can register to create an account and securely log in. Authentication is done via a standard email and password combination.
-- **User Dashboard**: Registered users have their own personal dashboard where they can:
-  - **Add Documents**: Upload important documents.
+- **Registration and Login**: Student can register to create an account and securely log in. Authentication is done via a standard email and password combination.
+- **User Dashboard**: Registered student have their own personal dashboard where they can:
+  - **Add and receive form teacher - Documents/Notes**.
   - **Delete Documents**: Remove documents that are no longer needed.
   - **View Documents**: Review the uploaded documents at any time.
 
 ### 2. Meeting Booking System
 
-- **Booking for All**: Both registered and unregistered users can book meetings.
-  - **Registered Users**: Automatically have booking fields (such as name and email) pre-filled.
-  - **Unregistered Users**: Can manually book a meeting without registration.
+- **Booking trial lesson for All**: Both registered and unregistered users can book lessons.
 - **Calendar Integration**:
-  - The calendar is configured to show **working days and hours** only.
+  - The calendar is configured to show **free days and hours** only.
   - It checks availability and **prevents double booking** by marking time slots that are already taken as unavailable.
 - **Email Confirmation**: After booking a meeting, an email with booking confirmation is sent to the provided email address, ensuring the user has a record of their appointment.
 
-### 3. Admin Features
+### 3. Chat With teacher in a real time
 
-- **Admin Dashboard**:
-  - View **all meetings** scheduled by both registered and unregistered users.
-  - Access and manage **all documents** uploaded by registered users.
-  - Upload documents for specific registered users to make personalized resources available.
-  - to try use **username - admin2; password - adminpassword**
+- **Loged in student**: Student can chat, send video links, songs that he want to play, notes, qustions, homework etc in a real time chat.
+
+### 4. Teacher Features
+
+- **Teacher Dashboard**:
+  - View **all lessons** scheduled by both registered and unregistered users.
+  - Access and manage **all documents/notes** uploaded by registered student.
+  - Upload documents/notes for specific registered student to make personalized resources available.
+  - to try use **username - admin2; password - admin123**
 
 ## Technologies Used
 
@@ -43,6 +45,7 @@ The following technologies were used to create this system:
 - **Authentication**: JWT (JSON Web Tokens) for handling user authentication and maintaining session security.
 - **Calendar Integration**: FullCalendar.js library for managing and displaying booking times.
 - **Email Service**: Nodemailer for sending booking confirmation emails to users.
+- **Websoket**: for real time chat.
 
 ## Getting Started
 
