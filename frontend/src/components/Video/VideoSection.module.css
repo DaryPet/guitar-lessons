@@ -1,5 +1,4 @@
 .videoSection {
-  /* margin: 0 auto; */
   padding: 60px 20px;
   background-color: #1a1a1a;
   color: whitesmoke;
@@ -74,22 +73,6 @@
   box-shadow: 0 0 0 2px red;
 }
 
-/* .swiper-button-prev,
-.swiper-button-next {
-
-  font-size: 180px !important;
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0 20px; 
-  z-index: 10; 
-} */
-
-.swiper-button-prev:hover,
-.swiper-button-next:hover {
-  color: whitesmoke !important;
-}
-
-/* Стили для пагинации Swiper */
 .swiper-pagination-bullet {
   opacity: 0.7;
   width: 15px !important;
@@ -102,10 +85,63 @@
   opacity: 1;
 }
 
-/* Корректировка iframe */
 iframe {
   width: 100%;
   height: 500px;
   border: none;
   border-radius: 10px;
+}
+@media (max-width: 767px) {
+  .title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  .videoSection .swiperContainer {
+    --swiper-navigation-top-offset: 95% !important;
+    --swiper-navigation-size: 30px !important;
+  }
+
+  .videoWrapper {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  .title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .swiperContainer {
+    padding: 20px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .videoPlaceholder {
+    height: 220px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1439px) {
+  .title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  .swiperContainer {
+    padding: 30px 40px;
+    max-width: 800px;
+  }
+
+  .videoPlaceholder {
+    height: 350px;
+  }
+}
+
+/* 1440px и более - все без изменений */
+@media (min-width: 1440px) {
+  /* Ваши исходные стили без изменений */
 }

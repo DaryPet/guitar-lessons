@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUsers, fetchCurrentUser } from "../../redux/operations";
 import { AppDispatch, RootState } from "../../redux/store";
@@ -12,6 +12,10 @@ const LoginPage: React.FC = () => {
   const navigate = useNavigate();
 
   const { status, error } = useSelector((state: RootState) => state.auth);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleLogin = async () => {
     try {

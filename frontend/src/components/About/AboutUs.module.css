@@ -33,14 +33,37 @@
   position: relative;
   margin-top: 20px;
 }
+.description,
+.descriptionLast {
+  width: 100%;
+  color: white;
+  position: relative;
+  text-align: justify;
+  line-height: 1.2;
+  max-width: 65ch; /* Оптимальная длина строки ~ 65-70 символов */
+  margin-left: auto;
+  margin-right: auto;
+  hyphens: auto;
+  /* overflow-wrap: break-word; */
+  /* word-break: break-word; */
+}
 
 .description {
+  font-size: 1.5rem;
+}
+
+.descriptionLast {
+  font-size: 2rem;
+  font-weight: 600;
+  /* padding: 40px; */
+}
+
+/* .description {
   width: 100%;
-  /* margin: 20px auto; */
   font-size: 1.5rem;
   color: white;
   position: relative;
-  /* padding: 10px; */
+  text-align: justify;
 }
 .descriptionLast {
   width: 100%;
@@ -50,7 +73,8 @@
   color: white;
   position: relative;
   padding: 40px;
-}
+  text-align: justify;
+} */
 .bookButton {
   background-color: #eb1f1f;
   color: #fff;
@@ -73,4 +97,25 @@
 .bookButton:focus {
   outline: none;
   box-shadow: 0 0 0 3px #decf6b;
+}
+@media (min-width: 320px) and (max-width: 375px) {
+  .link {
+    font-size: 4vw;
+    padding: 5px 5vw;
+  }
+}
+
+@media (min-width: 768px) {
+  .description {
+    font-size: 2rem;
+  }
+
+  .descriptionLast {
+    font-size: 2.5rem;
+  }
+}
+@media (min-width: 1440px) {
+  .descriptionLast {
+    padding: 0 85px;
+  }
 }

@@ -1,19 +1,23 @@
 .nav {
   background-color: #ffffff;
-  padding: 10px 20px;
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 1000;
+  left: 0;
+  right: 0;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 2000;
+  padding: 20px;
 }
 
 .navList {
-  display: flex;
   list-style: none;
-  padding: 0;
   margin: 0;
-  align-items: center;
-  justify-content: center;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
+  align-items: center;
 }
 
 .navItem {
@@ -23,28 +27,17 @@
 .link {
   font-size: 1rem;
   font-weight: 500;
-  /* color: #1d5396; */
   color: black;
   text-decoration: none;
   background: none;
   border: none;
   cursor: pointer;
   transition: color 0.3s, transform 0.3s;
-  padding: 10px 15px;
+  /* padding: 10px 15px; */
 }
 
-/* .link:hover {
-  color: #4a90e2;
-  transform: scale(1.1);
-}
-
-.link:focus {
-  outline: none;
-  border-bottom: 2px solid #4a90e2;
-} */
 .link:hover {
-  color: #555555; /* Цвет при наведении - светло-серый */
-  /* text-decoration: underline;  */
+  color: #555555;
   box-shadow: 0px 4px 8px rgba(237, 2, 2, 0.2);
   transform: scale(1.1);
 }
@@ -52,4 +45,59 @@
 .link:focus {
   outline: none;
   border-bottom: 2px solid #e80303;
+}
+
+.navOpen {
+  transform: translateY(0);
+  height: 100%;
+}
+
+@media (min-width: 320px) and (max-width: 375px) {
+  .link {
+    font-size: 4vw;
+    padding: 5px 5vw;
+  }
+}
+
+@media (max-width: 767px) {
+  .nav {
+    padding: 40px 20px;
+  }
+  .link {
+    padding: 10px 15px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1439px) {
+  .nav {
+    position: static;
+    transform: none;
+    transition: none;
+    background-color: transparent;
+    padding: 0;
+  }
+  .navList {
+    flex-direction: row;
+    gap: 20px;
+  }
+  .navOpen {
+    transform: none;
+  }
+}
+
+@media (min-width: 1440px) {
+  .link {
+    font-size: 1.5rem;
+  }
+  .nav {
+    position: static;
+    transform: none;
+    transition: none;
+    background-color: transparent;
+    padding: 0;
+  }
+  .navList {
+    flex-direction: row;
+    gap: 30px;
+  }
 }
