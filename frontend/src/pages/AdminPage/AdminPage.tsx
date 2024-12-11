@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AdminPage.module.css";
 import { Outlet } from "react-router-dom";
 import { NavLink } from "react-router-dom";
@@ -6,7 +6,9 @@ import GifAnimation from "../../components/GifAnimation/GifAnimation";
 
 const AdminPage: React.FC = () => {
   const [isGifVisible, setIsGifVisible] = useState(true);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleMenuClick = () => {
     setIsGifVisible(false);
   };
