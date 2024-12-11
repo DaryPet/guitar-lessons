@@ -57,6 +57,7 @@ const ChatHistory: React.FC = () => {
     }
 
     const newSocket = socketIOClient(BASE_URL, {
+      transports: ["websocket"],
       auth: {
         token: storedToken,
       },

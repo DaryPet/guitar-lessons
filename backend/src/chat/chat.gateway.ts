@@ -21,6 +21,7 @@ import { ConfigService } from '@nestjs/config';
     ],
     credentials: true,
   },
+  transports: ['websocket'],
 })
 export class ChatGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
