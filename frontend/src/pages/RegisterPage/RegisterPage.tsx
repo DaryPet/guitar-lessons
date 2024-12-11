@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,10 @@ const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
 
   const { status, error } = useSelector((state: RootState) => state.auth);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleRegister = async () => {
     try {

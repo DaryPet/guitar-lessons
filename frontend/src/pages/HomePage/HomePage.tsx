@@ -27,16 +27,10 @@ const HomePage: React.FC = () => {
       <section id="about" className={styles.section}>
         <InfoCardsList />
       </section>
-      {/* <section id="services" className={styles.section}>
-        <p className={styles.sectionTitle}>Our service</p>
-        <ServiceList />
-      </section> */}
       <section id="team" className={styles.section}>
-        <p className={styles.sectionTitle}>Video</p>
         <VideoSection />
       </section>
       <section id="testimonials" className={styles.section}>
-        {/* <p className={styles.sectionTitle}>Testimonials</p> */}
         <Testimonials />
       </section>
       <section id="booking" className={styles.section}>

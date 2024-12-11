@@ -2,7 +2,6 @@
   margin-top: 40px;
   padding: 20px;
   background: #f8f4f0;
-  border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
@@ -12,7 +11,7 @@
   flex-direction: column;
   gap: 20px;
   align-items: center;
-  max-width: 500px;
+  max-width: 360px;
   margin: 0 auto;
 }
 
@@ -89,20 +88,24 @@
 }
 
 .bookButton {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background: red;
+  background-color: #eb1f1f;
   color: #fff;
   border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s;
-  font-size: 16px;
+  transition: background-color 0.3s, transform 0.3s;
+  margin-top: 20px;
+  display: inline-block;
 }
 
 .bookButton:hover {
-  background: rgb(170, 41, 41);
+  background-color: rgb(170, 57, 57);
+  transform: scale(1.05);
 }
+
 .modal {
   position: absolute;
   top: 50%;
@@ -136,7 +139,6 @@
 .modalContent h3 {
   margin-bottom: 20px;
   font-size: 24px;
-  /* color: #007bff; */
   color: red;
 }
 
