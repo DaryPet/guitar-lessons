@@ -80,7 +80,20 @@ export class AuthService {
       });
 
       console.log('Созданный пользователь:', user);
-      return user;
+      const { accessToken, refreshToken } = this.createSession(user);
+
+      const session = this.sessionRepository.create({
+        userId: user.id,
+        accessToken,
+        refreshToken,
+      });
+      await this.sessionRepository.save(session);
+      return {
+        user,
+        access_token: accessToken,
+        refresh_token: refreshToken,
+        session_id: session.id,
+      };
     } catch (error) {
       console.error('Ошибка при регистрации пользователя:', error);
       throw error;
