@@ -19,10 +19,6 @@ const validationSchema = Yup.object({
 });
 
 const RegisterPage: React.FC = () => {
-  // const [name, setName] = useState("");
-  // const [username, setUsername] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
@@ -31,6 +27,43 @@ const RegisterPage: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  //
+  // const handleSubmit = async (values: {
+  //   name: string;
+  //   username: string;
+  //   email: string;
+  //   password: string;
+  // }) => {
+  //   try {
+  //     const response = await dispatch(registerUser(values)).unwrap();
+  //     console.log("Registration response:", response); // Логируем полный ответ
+
+  //     // Доступ к роли
+  //     if (response.user) {
+  //       console.log("User object:", response.user); // Логируем объект пользователя
+  //       console.log("User role:", response.user.role); // Доступ к роли пользователя
+  //     }
+
+  //     // Проверка роли и редирект
+  //     if (response.user?.role === "user") {
+  //       console.log("Navigating to /user-profile...");
+  //       navigate("/user-profile");
+  //     } else {
+  //       console.error("Unexpected role:", response.user?.role);
+  //     }
+
+  //     // Сохраняем токен
+  //     if (response.access_token) {
+  //       localStorage.setItem("access_token", response.access_token);
+  //       console.log(
+  //         "Access token saved:",
+  //         localStorage.getItem("access_token")
+  //       );
+  //     }
+  //   } catch (err) {
+  //     console.error("Registration error:", err);
+  //   }
+  // };
   const handleSubmit = async (values: {
     name: string;
     username: string;
@@ -38,19 +71,21 @@ const RegisterPage: React.FC = () => {
     password: string;
   }) => {
     try {
-      // Регистрируем пользователя
       const response = await dispatch(registerUser(values)).unwrap();
+      console.log("Registration response:", response);
 
-      // Сохраняем токен в localStorage
-      if (response.access_token) {
-        localStorage.setItem("access_token", response.access_token);
-      }
-
-      // Если роль - "user", перенаправляем на его кабинет
-      if (response.role === "user") {
+      if (response.user && response.user.role === "user") {
         navigate("/user-profile");
       } else {
-        console.error("Unexpected role:", response.role);
+        console.error("Unexpected role:", response.user?.role);
+      }
+
+      if (response.access_token) {
+        localStorage.setItem("access_token", response.access_token);
+        console.log(
+          "Access token saved:",
+          localStorage.getItem("access_token")
+        );
       }
     } catch (err) {
       console.error("Registration error:", err);

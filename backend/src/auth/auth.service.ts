@@ -110,7 +110,7 @@ export class AuthService {
         access_token: accessToken,
         refresh_token: refreshToken,
         session_id: session.id,
-        user,
+        user: { ...user, role },
       };
     } catch (error) {
       console.error('Ошибка при регистрации пользователя:', error);

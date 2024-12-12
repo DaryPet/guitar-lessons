@@ -22,7 +22,7 @@ export class User {
   @Column({ unique: true })
   username: string;
 
-  @Column({ default: 'user' }) // Роль по умолчанию - обычный пользователь
+  @Column({ default: 'user' })
   role: string;
 
   @OneToMany(() => Session, (session) => session.user)
