@@ -80,6 +80,7 @@ export class AuthService {
       });
 
       console.log('Созданный пользователь:', user);
+      console.log('User ID:', user.id);
       const {
         accessToken,
         refreshToken,
@@ -90,7 +91,10 @@ export class AuthService {
       console.log('Токены:', accessToken, refreshToken);
       console.log('AccessTokenValidUntil:', accessTokenValidUntil);
       console.log('RefreshTokenValidUntil:', refreshTokenValidUntil);
-
+      if (!user.id) {
+        console.error('Ошибка: user.id не существует!');
+        throw new Error('User ID is missing');
+      }
       const session = this.sessionRepository.create({
         userId: user.id,
         accessToken,
