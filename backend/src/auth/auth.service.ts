@@ -54,7 +54,12 @@ export class AuthService {
   async login(user: any) {
     const newSession = this.createSession(user);
     const session = this.sessionRepository.create({
+<<<<<<< HEAD
       userId: user.id,
+=======
+      // userId: user.id,
+      user,
+>>>>>>> parent of 7b2c2b7 (1)
       ...newSession,
     });
 
@@ -66,58 +71,6 @@ export class AuthService {
       session_id: session.id,
     };
   }
-
-  // async register(createUserDto: CreateUserDto) {
-  //   try {
-  //     const salt = await bcrypt.genSalt(10);
-  //     const hashedPassword = await bcrypt.hash(createUserDto.password, salt);
-
-  //     const role = createUserDto.role ? createUserDto.role : 'user';
-  //     const user = await this.userService.create({
-  //       ...createUserDto,
-  //       password: hashedPassword,
-  //       role: role,
-  //     });
-
-  //     console.log('Созданный пользователь:', user);
-  //     console.log('User ID:', user.id);
-  //     const {
-  //       accessToken,
-  //       refreshToken,
-  //       accessTokenValidUntil,
-  //       refreshTokenValidUntil,
-  //     } = this.createSession(user);
-
-  //     console.log('Токены:', accessToken, refreshToken);
-  //     console.log('AccessTokenValidUntil:', accessTokenValidUntil);
-  //     console.log('RefreshTokenValidUntil:', refreshTokenValidUntil);
-  //     if (!user.id) {
-  //       console.error('Ошибка: user.id не существует!');
-  //       throw new Error('User ID is missing');
-  //     }
-  //     const session = this.sessionRepository.create({
-  //       userId: user.id,
-  //       // user: user,
-  //       accessToken,
-  //       refreshToken,
-  //       accessTokenValidUntil,
-  //       refreshTokenValidUntil,
-  //     });
-  //     console.log('Сессия:', session);
-  //     await this.sessionRepository.save(session);
-  //     console.log('Сессия для пользователя сохранена:', session);
-
-  //     return {
-  //       access_token: accessToken,
-  //       refresh_token: refreshToken,
-  //       session_id: session.id,
-  //       user,
-  //     };
-  //   } catch (error) {
-  //     console.error('Ошибка при регистрации пользователя:', error);
-  //     throw error;
-  //   }
-  // }
 
   async register(createUserDto: CreateUserDto) {
     try {
@@ -132,13 +85,127 @@ export class AuthService {
       });
 
       console.log('Созданный пользователь:', user);
-      return user;
+      const { accessToken, refreshToken } = this.createSession(user);
+
+      const session = this.sessionRepository.create({
+<<<<<<< HEAD
+        userId: user.id,
+=======
+        // userId: user.id,
+        user,
+>>>>>>> parent of 7b2c2b7 (1)
+        accessToken,
+        refreshToken,
+      });
+      await this.sessionRepository.save(session);
+      return {
+        user,
+        access_token: accessToken,
+        refresh_token: refreshToken,
+        session_id: session.id,
+      };
     } catch (error) {
       console.error('Ошибка при регистрации пользователя:', error);
       throw error;
     }
   }
 
+  // async refreshUserSession(sessionId: number, refreshToken: string) {
+  //   console.log(`SessionId: ${sessionId}, RefreshToken: ${refreshToken}`);
+  //   console.log(
+  //     `Пытаемся найти сессию с id: ${sessionId} и refreshToken: ${refreshToken}`,
+  //   );
+  //   const session = await this.sessionRepository.findOne({
+  //     where: { id: sessionId, refreshToken },
+  //   });
+  //   console.log('Found session:', session);
+  //   if (!session) {
+  //     console.error('Сессия не найдена или неверный refreshToken');
+  //     throw new Error('Session not found');
+  //   }
+
+  //   const isSessionTokenExpired = new Date() > session.refreshTokenValidUntil;
+
+  //   if (isSessionTokenExpired) {
+  //     console.error('Refresh token истек');
+  //     throw new Error('Session token expired');
+  //   }
+
+  //   // Используем полный объект пользователя для создания сессии
+  //   const user = await this.userService.findById(session.userId);
+  //   const newSession = this.createSession(user);
+
+  //   console.log('Создана новая сессия:', newSession);
+  //   session.accessToken = newSession.accessToken;
+  //   session.refreshToken = newSession.refreshToken;
+  //   session.accessTokenValidUntil = newSession.accessTokenValidUntil;
+  //   session.refreshTokenValidUntil = newSession.refreshTokenValidUntil;
+
+  //   await this.sessionRepository.save(session);
+  //   console.log('Обновленная сессия:', session);
+
+  //   return {
+  //     accessToken: session.accessToken,
+  //     refreshToken: session.refreshToken,
+  //     id: session.id,
+  //   };
+  // }
+
+  // async refreshUserSession(sessionId: number, refreshToken: string) {
+  //   console.log(`SessionId: ${sessionId}, RefreshToken: ${refreshToken}`);
+  //   console.log(
+  //     `Пытаемся найти сессию с id: ${sessionId} и refreshToken: ${refreshToken}`,
+  //   );
+
+  //   const session = await this.sessionRepository.findOne({
+  //     where: { id: sessionId, refreshToken },
+  //   });
+
+  //   console.log('Found session:', session);
+  //   if (!session) {
+  //     console.error('Сессия не найдена или неверный refreshToken');
+  //     throw new Error('Session not found');
+  //   }
+
+  //   const isSessionTokenExpired = new Date() > session.refreshTokenValidUntil;
+
+  //   if (isSessionTokenExpired) {
+  //     console.error('Refresh token истек');
+  //     throw new Error('Session token expired');
+  //   }
+
+  //   // Создаем новую сессию и присваиваем обновленные токены
+  //   const newSession = this.createSession({
+  //     id: session.userId,
+  //     username: session.username,
+  //     role: session.role,
+  //   });
+  //   console.log('Создана новая сессия:', newSession);
+
+  //   // Присваиваем значения обновленных токенов в сессию перед сохранением
+  //   session.accessToken = newSession.accessToken;
+  //   session.refreshToken = newSession.refreshToken;
+  //   session.accessTokenValidUntil = newSession.accessTokenValidUntil;
+  //   session.refreshTokenValidUntil = newSession.refreshTokenValidUntil;
+
+  //   // Добавляем логирование до сохранения
+  //   console.log('Сессия перед сохранением:', session);
+
+  //   // Сохраняем изменения
+  //   await this.sessionRepository.save(session);
+
+  //   // Добавляем логирование после сохранения для проверки
+  //   const updatedSession = await this.sessionRepository.findOne({
+  //     where: { id: sessionId },
+  //   });
+  //   console.log('Обновленная сессия после сохранения:', updatedSession);
+
+  //   return {
+  //     accessToken: updatedSession.accessToken,
+  //     refreshToken: updatedSession.refreshToken,
+  //     id: updatedSession.id,
+  //   };
+  // }
   async refreshUserSession(sessionId: number, refreshToken: string) {
     console.log(`SessionId: ${sessionId}, RefreshToken: ${refreshToken}`);
     console.log(
@@ -161,16 +228,10 @@ export class AuthService {
     }
 
     // ЗАГРУЗКА ПОЛЬЗОВАТЕЛЯ ДЛЯ СОЗДАНИЯ НОВОЙ СЕССИИ
-    // const user = await this.userService.findById(session.userId);
-    const user = await this.userService.findById(session.user.id);
+    const user = await this.userService.findById(session.userId);
     if (!user) {
-      // console.error('Пользователь не найден для userId:', session.userId);
-      console.error('Пользователь не найден для userId:', session.user.id);
+      console.error('Пользователь не найден для userId:', session.userId);
       throw new Error('User not found');
-    }
-    if (!user.id) {
-      console.error('Ошибка: user.id не существует!');
-      throw new Error('User ID is missing');
     }
 
     // Создаем новую сессию
