@@ -20,40 +20,37 @@ import { OptionalJwtAuthGuard } from './guards/optional-jwt-auth.guard';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('register')
-  async register(@Body() createUserDto: CreateUserDto) {
-    console.log('Запрос на регистрацию получен с данными:', createUserDto);
-    return this.authService.register(createUserDto);
-  }
   // @Post('register')
-  // async register(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
+  // async register(@Body() createUserDto: CreateUserDto) {
   //   console.log('Запрос на регистрацию получен с данными:', createUserDto);
-  //   const user = await this.authService.register(createUserDto); // Регистрация пользователя
-  //   if (!user) {
-  //     throw new UnauthorizedException('Registration failed');
-  //   }
-  //   const { access_token, refresh_token, session_id } =
-  //     await this.authService.login(user);
-
-  //   res.cookie('sessionId', session_id, {
-  //     httpOnly: true,
-  //     secure: process.env.NODE_ENV === 'production',
-  //     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-  //     maxAge: 24 * 60 * 60 * 1000,
-  //     path: '/',
-  //   });
-  //   res.cookie('refresh_token', refresh_token, {
-  //     httpOnly: true,
-  //     secure: process.env.NODE_ENV === 'production',
-  //     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-  //     maxAge: 24 * 60 * 60 * 1000,
-  //     path: '/',
-  //   });
-
-  //   console.log('Куки установлены: sessionId и refresh_token');
-
-  //   return res.json({ access_token });
+  //   return this.authService.register(createUserDto);
   // }
+  @Post('register')
+  async register(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
+    console.log('Запрос на регистрацию получен с данными:', createUserDto);
+
+    const { access_token, refresh_token, session_id } =
+      await this.authService.register(createUserDto);
+
+    res.cookie('sessionId', session_id, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // Убедитесь, что куки устанавливаются корректно в production
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      maxAge: 24 * 60 * 60 * 1000, // 1 день
+      path: '/',
+    });
+
+    res.cookie('refresh_token', refresh_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      maxAge: 24 * 60 * 60 * 1000, // 1 день
+      path: '/',
+    });
+
+    console.log('Куки установлены: sessionId и refresh_token');
+    return res.json({ access_token });
+  }
 
   @Post('login')
   async login(@Body() loginDto: any, @Res() res: Response) {
