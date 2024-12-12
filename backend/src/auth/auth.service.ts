@@ -55,7 +55,8 @@ export class AuthService {
     const newSession = this.createSession(user);
     const session = this.sessionRepository.create({
       // userId: user.id,
-      user,
+      user: user,
+
       ...newSession,
     });
 
@@ -98,7 +99,7 @@ export class AuthService {
       }
       const session = this.sessionRepository.create({
         // userId: user.id,
-        user,
+        user: user,
         accessToken,
         refreshToken,
         accessTokenValidUntil,

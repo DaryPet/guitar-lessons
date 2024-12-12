@@ -39,7 +39,7 @@ export class Session {
   id: number;
 
   @ManyToOne(() => User, (user) => user.sessions, { nullable: false })
-  @JoinColumn({ name: 'userId' }) // Указывает, что `userId` — это внешний ключ
+  @JoinColumn({ name: 'userId' })
   user: User;
 
   @Column()
