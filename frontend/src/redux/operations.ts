@@ -23,17 +23,9 @@ export const registerUser = createAsyncThunk(
     thunkAPI
   ) => {
     try {
-      // \\\\\\\\\\\\\\
-      // console.log("Данные для регистрации:", {
-      //   name,
-      //   username,
-      //   email,
-      //   password,
-      // });
-
       const response = await register(name, username, email, password);
       // \\\\\\\\\\\\\\\\\\\
-      // console.log("Ответ от сервера:", response);
+      console.log("Ответ от сервера:", response);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue("Error during registration");

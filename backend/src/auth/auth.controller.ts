@@ -28,13 +28,20 @@ export class AuthController {
   @Post('register')
   async register(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
     console.log('Запрос на регистрацию получен с данными:', createUserDto);
+    const role = createUserDto.role || 'user';
 
-    const { access_token, refresh_token, session_id } =
-      await this.authService.register(createUserDto);
+    const user = await this.authService.register({
+      ...createUserDto,
+      role,
+    });
+
+    console.log('Registered user:', user);
+
+    const { access_token, refresh_token, session_id } = user;
 
     res.cookie('sessionId', session_id, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Убедитесь, что куки устанавливаются корректно в production
+      secure: process.env.NODE_ENV === 'production',
       sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       maxAge: 24 * 60 * 60 * 1000, // 1 день
       path: '/',
@@ -49,7 +56,12 @@ export class AuthController {
     });
 
     console.log('Куки установлены: sessionId и refresh_token');
-    return res.json({ access_token });
+    return res.json({
+      access_token,
+      refresh_token,
+      session_id,
+      user,
+    });
   }
 
   @Post('login')
