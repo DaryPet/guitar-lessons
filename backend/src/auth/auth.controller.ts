@@ -108,7 +108,7 @@ export class AuthController {
       sessionId,
       refreshToken,
     );
-    // \\\\\\\\\\\\\\
+
     console.log('je', updatedSession);
     res.cookie('sessionId', updatedSession.id, {
       httpOnly: true,
