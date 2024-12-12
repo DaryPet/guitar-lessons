@@ -28,7 +28,6 @@
 // export const USERS_URL = `${USERS_API_URL}`;
 // export const USERS_ID_URL = (id: string) => `${USERS_API_URL}/${id}`;
 export const BASE_URL = "https://guitar-lessons-i99p.onrender.com";
-// export const BASE_URL = "http://localhost:3000";
 
 // Существующие API URL
 export const AUTH_API_URL = `${BASE_URL}/auth/`;

@@ -67,58 +67,6 @@ export class AuthService {
     };
   }
 
-  // async register(createUserDto: CreateUserDto) {
-  //   try {
-  //     const salt = await bcrypt.genSalt(10);
-  //     const hashedPassword = await bcrypt.hash(createUserDto.password, salt);
-
-  //     const role = createUserDto.role ? createUserDto.role : 'user';
-  //     const user = await this.userService.create({
-  //       ...createUserDto,
-  //       password: hashedPassword,
-  //       role: role,
-  //     });
-
-  //     console.log('Созданный пользователь:', user);
-  //     console.log('User ID:', user.id);
-  //     const {
-  //       accessToken,
-  //       refreshToken,
-  //       accessTokenValidUntil,
-  //       refreshTokenValidUntil,
-  //     } = this.createSession(user);
-
-  //     console.log('Токены:', accessToken, refreshToken);
-  //     console.log('AccessTokenValidUntil:', accessTokenValidUntil);
-  //     console.log('RefreshTokenValidUntil:', refreshTokenValidUntil);
-  //     if (!user.id) {
-  //       console.error('Ошибка: user.id не существует!');
-  //       throw new Error('User ID is missing');
-  //     }
-  //     const session = this.sessionRepository.create({
-  //       userId: user.id,
-  //       // user: user,
-  //       accessToken,
-  //       refreshToken,
-  //       accessTokenValidUntil,
-  //       refreshTokenValidUntil,
-  //     });
-  //     console.log('Сессия:', session);
-  //     await this.sessionRepository.save(session);
-  //     console.log('Сессия для пользователя сохранена:', session);
-
-  //     return {
-  //       access_token: accessToken,
-  //       refresh_token: refreshToken,
-  //       session_id: session.id,
-  //       user,
-  //     };
-  //   } catch (error) {
-  //     console.error('Ошибка при регистрации пользователя:', error);
-  //     throw error;
-  //   }
-  // }
-
   async register(createUserDto: CreateUserDto) {
     try {
       const salt = await bcrypt.genSalt(10);
@@ -132,7 +80,39 @@ export class AuthService {
       });
 
       console.log('Созданный пользователь:', user);
-      return user;
+      console.log('User ID:', user.id);
+      const {
+        accessToken,
+        refreshToken,
+        accessTokenValidUntil,
+        refreshTokenValidUntil,
+      } = this.createSession(user);
+
+      console.log('Токены:', accessToken, refreshToken);
+      console.log('AccessTokenValidUntil:', accessTokenValidUntil);
+      console.log('RefreshTokenValidUntil:', refreshTokenValidUntil);
+      if (!user.id) {
+        console.error('Ошибка: user.id не существует!');
+        throw new Error('User ID is missing');
+      }
+      const session = this.sessionRepository.create({
+        userId: user.id,
+        // user: user,
+        accessToken,
+        refreshToken,
+        accessTokenValidUntil,
+        refreshTokenValidUntil,
+      });
+      console.log('Сессия:', session);
+      await this.sessionRepository.save(session);
+      console.log('Сессия для пользователя сохранена:', session);
+
+      return {
+        access_token: accessToken,
+        refresh_token: refreshToken,
+        session_id: session.id,
+        user,
+      };
     } catch (error) {
       console.error('Ошибка при регистрации пользователя:', error);
       throw error;
