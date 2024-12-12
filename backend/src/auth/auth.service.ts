@@ -80,33 +80,19 @@ export class AuthService {
       });
 
       console.log('Созданный пользователь:', user);
-      const {
-        accessToken,
-        refreshToken,
-        accessTokenValidUntil,
-        refreshTokenValidUntil,
-      } = this.createSession(user);
-
-      console.log('Токены:', accessToken, refreshToken);
-      console.log('AccessTokenValidUntil:', accessTokenValidUntil);
-      console.log('RefreshTokenValidUntil:', refreshTokenValidUntil);
+      const { accessToken, refreshToken } = this.createSession(user);
 
       const session = this.sessionRepository.create({
         userId: user.id,
         accessToken,
         refreshToken,
-        accessTokenValidUntil,
-        refreshTokenValidUntil,
       });
-      console.log('Сессия:', session);
       await this.sessionRepository.save(session);
-      console.log('Сессия для пользователя сохранена:', session);
-
       return {
+        user,
         access_token: accessToken,
         refresh_token: refreshToken,
         session_id: session.id,
-        user,
       };
     } catch (error) {
       console.error('Ошибка при регистрации пользователя:', error);
@@ -114,6 +100,102 @@ export class AuthService {
     }
   }
 
+  // async refreshUserSession(sessionId: number, refreshToken: string) {
+  //   console.log(`SessionId: ${sessionId}, RefreshToken: ${refreshToken}`);
+  //   console.log(
+  //     `Пытаемся найти сессию с id: ${sessionId} и refreshToken: ${refreshToken}`,
+  //   );
+  //   const session = await this.sessionRepository.findOne({
+  //     where: { id: sessionId, refreshToken },
+  //   });
+  //   console.log('Found session:', session);
+  //   if (!session) {
+  //     console.error('Сессия не найдена или неверный refreshToken');
+  //     throw new Error('Session not found');
+  //   }
+
+  //   const isSessionTokenExpired = new Date() > session.refreshTokenValidUntil;
+
+  //   if (isSessionTokenExpired) {
+  //     console.error('Refresh token истек');
+  //     throw new Error('Session token expired');
+  //   }
+
+  //   // Используем полный объект пользователя для создания сессии
+  //   const user = await this.userService.findById(session.userId);
+  //   const newSession = this.createSession(user);
+
+  //   console.log('Создана новая сессия:', newSession);
+  //   session.accessToken = newSession.accessToken;
+  //   session.refreshToken = newSession.refreshToken;
+  //   session.accessTokenValidUntil = newSession.accessTokenValidUntil;
+  //   session.refreshTokenValidUntil = newSession.refreshTokenValidUntil;
+
+  //   await this.sessionRepository.save(session);
+  //   console.log('Обновленная сессия:', session);
+
+  //   return {
+  //     accessToken: session.accessToken,
+  //     refreshToken: session.refreshToken,
+  //     id: session.id,
+  //   };
+  // }
+
+  // async refreshUserSession(sessionId: number, refreshToken: string) {
+  //   console.log(`SessionId: ${sessionId}, RefreshToken: ${refreshToken}`);
+  //   console.log(
+  //     `Пытаемся найти сессию с id: ${sessionId} и refreshToken: ${refreshToken}`,
+  //   );
+
+  //   const session = await this.sessionRepository.findOne({
+  //     where: { id: sessionId, refreshToken },
+  //   });
+
+  //   console.log('Found session:', session);
+  //   if (!session) {
+  //     console.error('Сессия не найдена или неверный refreshToken');
+  //     throw new Error('Session not found');
+  //   }
+
+  //   const isSessionTokenExpired = new Date() > session.refreshTokenValidUntil;
+
+  //   if (isSessionTokenExpired) {
+  //     console.error('Refresh token истек');
+  //     throw new Error('Session token expired');
+  //   }
+
+  //   // Создаем новую сессию и присваиваем обновленные токены
+  //   const newSession = this.createSession({
+  //     id: session.userId,
+  //     username: session.username,
+  //     role: session.role,
+  //   });
+  //   console.log('Создана новая сессия:', newSession);
+
+  //   // Присваиваем значения обновленных токенов в сессию перед сохранением
+  //   session.accessToken = newSession.accessToken;
+  //   session.refreshToken = newSession.refreshToken;
+  //   session.accessTokenValidUntil = newSession.accessTokenValidUntil;
+  //   session.refreshTokenValidUntil = newSession.refreshTokenValidUntil;
+
+  //   // Добавляем логирование до сохранения
+  //   console.log('Сессия перед сохранением:', session);
+
+  //   // Сохраняем изменения
+  //   await this.sessionRepository.save(session);
+
+  //   // Добавляем логирование после сохранения для проверки
+  //   const updatedSession = await this.sessionRepository.findOne({
+  //     where: { id: sessionId },
+  //   });
+  //   console.log('Обновленная сессия после сохранения:', updatedSession);
+
+  //   return {
+  //     accessToken: updatedSession.accessToken,
+  //     refreshToken: updatedSession.refreshToken,
+  //     id: updatedSession.id,
+  //   };
+  // }
   async refreshUserSession(sessionId: number, refreshToken: string) {
     console.log(`SessionId: ${sessionId}, RefreshToken: ${refreshToken}`);
     console.log(
