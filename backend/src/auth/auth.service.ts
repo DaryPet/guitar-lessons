@@ -54,7 +54,12 @@ export class AuthService {
   async login(user: any) {
     const newSession = this.createSession(user);
     const session = this.sessionRepository.create({
+<<<<<<< HEAD
       userId: user.id,
+=======
+      // userId: user.id,
+      user,
+>>>>>>> parent of 7b2c2b7 (1)
       ...newSession,
     });
 
@@ -83,7 +88,12 @@ export class AuthService {
       const { accessToken, refreshToken } = this.createSession(user);
 
       const session = this.sessionRepository.create({
+<<<<<<< HEAD
         userId: user.id,
+=======
+        // userId: user.id,
+        user,
+>>>>>>> parent of 7b2c2b7 (1)
         accessToken,
         refreshToken,
       });
