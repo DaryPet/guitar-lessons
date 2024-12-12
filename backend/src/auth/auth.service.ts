@@ -54,7 +54,8 @@ export class AuthService {
   async login(user: any) {
     const newSession = this.createSession(user);
     const session = this.sessionRepository.create({
-      userId: user.id,
+      // userId: user.id,
+      user,
       ...newSession,
     });
 
@@ -96,7 +97,8 @@ export class AuthService {
         throw new Error('User ID is missing');
       }
       const session = this.sessionRepository.create({
-        userId: user.id,
+        // userId: user.id,
+        user,
         accessToken,
         refreshToken,
         accessTokenValidUntil,
@@ -140,9 +142,11 @@ export class AuthService {
     }
 
     // ЗАГРУЗКА ПОЛЬЗОВАТЕЛЯ ДЛЯ СОЗДАНИЯ НОВОЙ СЕССИИ
-    const user = await this.userService.findById(session.userId);
+    // const user = await this.userService.findById(session.userId);
+    const user = await this.userService.findById(session.user.id);
     if (!user) {
-      console.error('Пользователь не найден для userId:', session.userId);
+      // console.error('Пользователь не найден для userId:', session.userId);
+      console.error('Пользователь не найден для userId:', session.user.id);
       throw new Error('User not found');
     }
     if (!user.id) {
