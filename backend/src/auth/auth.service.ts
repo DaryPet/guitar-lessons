@@ -145,10 +145,6 @@ export class AuthService {
       console.error('Пользователь не найден для userId:', session.userId);
       throw new Error('User not found');
     }
-    if (!user.id) {
-      console.error('Ошибка: user.id не существует!');
-      throw new Error('User ID is missing');
-    }
 
     // Создаем новую сессию
     const newSession = this.createSession(user);
