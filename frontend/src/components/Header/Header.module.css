@@ -53,9 +53,6 @@
   .logoImage {
     width: 14vw;
   }
-  .logoText {
-    font-size: 5vw;
-  }
 }
 
 @media (max-width: 767px) {
@@ -71,11 +68,12 @@
   .header {
     padding: 10px 40px;
   }
-  .logoText {
-    font-size: 1.8em;
-  }
+
   .logoImage {
-    width: 56px;
+    width: 65px;
+  }
+  .logo a {
+    font-size: 2rem;
   }
 }
 
@@ -83,13 +81,11 @@
   .header {
     padding: 10px 60px;
   }
-  .logoText {
-    font-size: 2em;
-  }
+
   .logoImage {
-    width: 60px;
+    width: 80px;
   }
   .logo a {
-    font-size: 1.8rem;
+    font-size: 3rem;
   }
 }
