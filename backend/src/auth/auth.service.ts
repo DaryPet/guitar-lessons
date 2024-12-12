@@ -54,9 +54,7 @@ export class AuthService {
   async login(user: any) {
     const newSession = this.createSession(user);
     const session = this.sessionRepository.create({
-      // userId: user.id,
-      user: user,
-
+      userId: user.id,
       ...newSession,
     });
 
@@ -98,8 +96,8 @@ export class AuthService {
         throw new Error('User ID is missing');
       }
       const session = this.sessionRepository.create({
-        // userId: user.id,
-        user: user,
+        userId: user.id,
+        // user: user,
         accessToken,
         refreshToken,
         accessTokenValidUntil,
