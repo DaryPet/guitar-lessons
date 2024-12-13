@@ -10,7 +10,6 @@ import {
   fetchAllUsers,
   initializeAuthState,
   deleteUser,
-  // deleteUser,
 } from "../operations";
 import { toast } from "react-toastify";
 
@@ -230,7 +229,6 @@ const authSlice = createSlice({
         state.error = action.payload as string;
         state.status = "failed";
         toast.error("Failed to delete user");
-      }),
 });
 
 export const { resetAuthState } = authSlice.actions;

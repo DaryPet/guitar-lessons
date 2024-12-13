@@ -48,7 +48,6 @@ const AllUsers: React.FC = () => {
       await dispatch(deleteUser(userId)); // Удаление пользователя
     }
   };
-
   return (
     <section className={styles.allUsersContainer}>
       <h2 className={styles.allUsersTitle}>All Students</h2>
@@ -72,11 +71,12 @@ const AllUsers: React.FC = () => {
                   <span className={styles.userName}>{user.name}</span> -
                   {user.email}
                 </p>
-                <div>
-                  <button onClick={() => handleDeleteUser(user.id)}>
-                    Delete
-                  </button>
-                </div>
+                <button
+                  onClick={() => handleDeleteUser(user.id)}
+                  className={styles.deleteButton}
+                >
+                  Delete
+                </button>
               </li>
             ))}
           </ul>
