@@ -229,8 +229,8 @@ const authSlice = createSlice({
         state.error = action.payload as string;
         state.status = "failed";
         toast.error("Failed to delete user");
-});
-
+      })
+      
 export const { resetAuthState } = authSlice.actions;
 export const selectAuthUser = (state: RootState) => state.auth.user;
 export const selectAuthToken = (state: RootState) => state.auth.token;
