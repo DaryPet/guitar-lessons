@@ -212,12 +212,23 @@ const authSlice = createSlice({
         state.error = action.payload as string;
         state.status = "failed";
       })
+      .addCase(deleteUser.pending, (state) => {
+        state.status = "loading";
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(deleteUser.fulfilled, (state, action) => {
+        // Удаляем пользователя из списка
         state.users = state.users.filter((user) => user.id !== action.payload);
+        state.loading = false;
+        state.status = "succeeded";
+        toast.success("User deleted successfully");
       })
       .addCase(deleteUser.rejected, (state, action) => {
+        state.loading = false;
         state.error = action.payload as string;
-      }),
+        state.status = "failed";
+        toast.error("Failed to delete user");
 });
 
 export const { resetAuthState } = authSlice.actions;

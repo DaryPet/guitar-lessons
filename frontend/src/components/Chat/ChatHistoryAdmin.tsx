@@ -59,6 +59,7 @@ const ChatHistoryAdmin: React.FC = () => {
     }
 
     const newSocket = socketIOClient(BASE_URL, {
+      transports: ["websocket"],
       auth: {
         token: storedToken,
       },

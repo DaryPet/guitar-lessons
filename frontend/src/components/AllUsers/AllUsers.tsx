@@ -43,9 +43,9 @@ const AllUsers: React.FC = () => {
       setCurrentPage(currentPage + 1);
     }
   };
-  const handleDeleteUser = (id: string) => {
+  const handleDeleteUser = async (userId: string) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
-      dispatch(deleteUser(id));
+      await dispatch(deleteUser(userId)); // Удаление пользователя
     }
   };
   return (
