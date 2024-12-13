@@ -1,19 +1,17 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcryptjs';
+import { Message } from '../chat/entities/message.entity'; // Добавьте импорт Message
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    @InjectRepository(Message) private messageRepository: Repository<Message>,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -65,18 +63,45 @@ export class UserService {
   //     throw new InternalServerErrorException('Error deleting user');
   //   }
   // }
-  async deleteUser(id: number): Promise<void> {
-    console.log(`Deleting sessions for user ID: ${id}`);
+  // Метод для удаления сообщений пользователя
+  async deleteUserMessages(userId: number): Promise<void> {
+    console.log(`Deleting messages for user ID: ${userId}`);
 
-    // Удаляем связанные сессии из таблицы `session`
+    // Удаляем все сообщения, где пользователь является отправителем или получателем
+    await this.messageRepository
+      .createQueryBuilder()
+      .delete()
+      .from(Message) // Указываем, что удаляем из таблицы сообщений
+      .where('senderId = :userId OR receiverId = :userId', { userId }) // Убираем 'message.'
+      .execute();
+
+    console.log(`Messages for user ID: ${userId} deleted successfully`);
+  }
+
+  // Метод для удаления сессий пользователя
+  async deleteUserSessions(userId: number): Promise<void> {
+    console.log(`Deleting sessions for user ID: ${userId}`);
+
+    // Удаляем все сессии пользователя
     await this.userRepository.manager.query(
       'DELETE FROM "session" WHERE "userId" = $1',
-      [id],
+      [userId],
     );
 
+    console.log(`Sessions for user ID: ${userId} deleted successfully`);
+  }
+
+  // Метод для удаления пользователя
+  async deleteUser(id: number): Promise<void> {
     console.log(`Deleting user with ID: ${id}`);
 
-    // Удаляем пользователя
+    // Удаляем сообщения пользователя
+    await this.deleteUserMessages(id);
+
+    // Удаляем сессии пользователя
+    await this.deleteUserSessions(id);
+
+    // Удаляем самого пользователя
     await this.userRepository.delete(id);
 
     console.log(`User with ID: ${id} deleted successfully`);

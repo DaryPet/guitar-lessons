@@ -18,10 +18,16 @@ import { Request } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'; // Защита маршрутов с помощью JWT аутентификации
 import { RolesGuard } from '../auth/guards/roles.guard'; // Импортируем RolesGuard
 import { Role } from '../auth/decorators/roles.decorator'; // Импортируем Role декоратор
+import { Message } from 'src/chat/entities/message.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    @InjectRepository(Message) private messageRepository: Repository<Message>,
+  ) {}
 
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
@@ -78,6 +84,47 @@ export class UserController {
   // async deleteUser(@Param('id') id: number): Promise<void> {
   //   return await this.userService.deleteUser(id);
   // }
+  //   @UseGuards(JwtAuthGuard, RolesGuard)
+  //   @Role('admin')
+  //   @Delete(':id')
+  //   async deleteUser(
+  //     @Param('id') id: string,
+  //     @Req() req: Request,
+  //   ): Promise<void> {
+  //     console.log(
+  //       `User with role ${req.user.role} is attempting to delete user with ID: ${id}`,
+  //     );
+
+  //     const numericId = parseInt(id, 10);
+  //     if (isNaN(numericId)) {
+  //       throw new BadRequestException('Invalid user ID');
+  //     }
+
+  //     console.log(`Parsed ID: ${numericId}`);
+  //     return await this.userService.deleteUser(numericId);
+  //   }
+  // }
+  //   @UseGuards(JwtAuthGuard, RolesGuard)
+  //   @Role('admin')
+  //   @Delete(':id')
+  //   async deleteUser(
+  //     @Param('id') id: string,
+  //     @Req() req: Request,
+  //   ): Promise<void> {
+  //     console.log(
+  //       `User with role ${req.user.role} is attempting to delete user with ID: ${id}`,
+  //     );
+
+  //     const numericId = parseInt(id, 10);
+  //     if (isNaN(numericId)) {
+  //       throw new BadRequestException('Invalid user ID');
+  //     }
+
+  //     // Удаление пользователя без проверки на наличие сообщений
+  //     console.log(`Parsed ID: ${numericId}`);
+  //     return await this.userService.deleteUser(numericId);
+  //   }
+  // }
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Role('admin')
   @Delete(':id')
@@ -95,6 +142,6 @@ export class UserController {
     }
 
     console.log(`Parsed ID: ${numericId}`);
-    return await this.userService.deleteUser(numericId);
+    await this.userService.deleteUser(numericId);
   }
 }
