@@ -193,7 +193,7 @@ const authSlice = createSlice({
         const errorMessage = action.payload as string;
         state.error = errorMessage;
         // \\\\\\\\\\\\\\\\\\\\\
-        console.error("Logout error: ", action.error);
+        // console.error("Logout error: ", action.error);
         toast.error(errorMessage);
       })
       .addCase(fetchAllUsers.pending, (state) => {
