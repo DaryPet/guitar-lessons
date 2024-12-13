@@ -9,6 +9,7 @@ import {
   UseGuards,
   Req,
   ForbiddenException,
+  BadRequestException,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './entities/user.entity';
@@ -73,8 +74,27 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard, RolesGuard) // Ограничиваем удаление пользователей
   @Role('admin') // Только администратор может удалять пользователей
+  // @Delete(':id')
+  // async deleteUser(@Param('id') id: number): Promise<void> {
+  //   return await this.userService.deleteUser(id);
+  // }
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Role('admin')
   @Delete(':id')
-  async deleteUser(@Param('id') id: number): Promise<void> {
-    return await this.userService.deleteUser(id);
+  async deleteUser(
+    @Param('id') id: string,
+    @Req() req: Request,
+  ): Promise<void> {
+    console.log(
+      `User with role ${req.user.role} is attempting to delete user with ID: ${id}`,
+    );
+
+    const numericId = parseInt(id, 10);
+    if (isNaN(numericId)) {
+      throw new BadRequestException('Invalid user ID');
+    }
+
+    console.log(`Parsed ID: ${numericId}`);
+    return await this.userService.deleteUser(numericId);
   }
 }
