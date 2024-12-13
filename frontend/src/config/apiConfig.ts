@@ -65,4 +65,4 @@ export const BOOKING_URL = `${BOOKING_API_URL}`;
 export const BOOKING_ID_URL = (id: string) => `${BOOKING_API_URL}${id}`;
 export const BOOKING_MY_URL = `${BOOKING_API_URL}my`;
 export const USERS_URL = `${USERS_API_URL}`;
-export const USERS_ID_URL = (id: string) => `${USERS_API_URL}/${id}`;
+export const USERS_ID_URL = (id: string) => `${USERS_API_URL}${id}`;

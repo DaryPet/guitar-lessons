@@ -199,3 +199,20 @@ export const fetchUserByName = async (
     throw new Error("Error fetching user by username");
   }
 };
+export const deleteUserService = async (id: string) => {
+  const access_token = localStorage.getItem("access_token");
+  if (!access_token) {
+    throw new Error("Access token is missing");
+  }
+
+  try {
+    await axios.delete(USERS_ID_URL(id), {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+      withCredentials: true,
+    });
+  } catch (error) {
+    throw new Error("Failed to delete user");
+  }
+};

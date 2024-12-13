@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllUsers } from "../../redux/operations";
+import { deleteUser, fetchAllUsers } from "../../redux/operations";
 import { RootState, AppDispatch } from "../../redux/store";
 import styles from "./AllUsers.module.css";
 import Loader from "../Loader/Loader";
@@ -43,6 +43,11 @@ const AllUsers: React.FC = () => {
       setCurrentPage(currentPage + 1);
     }
   };
+  const handleDeleteUser = async (userId: string) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      await dispatch(deleteUser(userId)); // Удаление пользователя
+    }
+  };
 
   return (
     <section className={styles.allUsersContainer}>
@@ -67,6 +72,11 @@ const AllUsers: React.FC = () => {
                   <span className={styles.userName}>{user.name}</span> -
                   {user.email}
                 </p>
+                <div>
+                  <button onClick={() => handleDeleteUser(user.id)}>
+                    Delete
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
