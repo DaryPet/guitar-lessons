@@ -27,68 +27,31 @@ const RegisterPage: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  //
-  // const handleSubmit = async (values: {
-  //   name: string;
-  //   username: string;
-  //   email: string;
-  //   password: string;
-  // }) => {
-  //   try {
-  //     const response = await dispatch(registerUser(values)).unwrap();
-  //     console.log("Registration response:", response); // Логируем полный ответ
 
-  //     // Доступ к роли
-  //     if (response.user) {
-  //       console.log("User object:", response.user); // Логируем объект пользователя
-  //       console.log("User role:", response.user.role); // Доступ к роли пользователя
-  //     }
-
-  //     // Проверка роли и редирект
-  //     if (response.user?.role === "user") {
-  //       console.log("Navigating to /user-profile...");
-  //       navigate("/user-profile");
-  //     } else {
-  //       console.error("Unexpected role:", response.user?.role);
-  //     }
-
-  //     // Сохраняем токен
-  //     if (response.access_token) {
-  //       localStorage.setItem("access_token", response.access_token);
-  //       console.log(
-  //         "Access token saved:",
-  //         localStorage.getItem("access_token")
-  //       );
-  //     }
-  //   } catch (err) {
-  //     console.error("Registration error:", err);
-  //   }
-  // };
-  const handleSubmit = async (values: {
+  interface RegisterValues {
     name: string;
     username: string;
     email: string;
     password: string;
-  }) => {
+  }
+
+  const handleSubmit = async (values: RegisterValues): Promise<void> => {
     try {
       const response = await dispatch(registerUser(values)).unwrap();
-      console.log("Registration response:", response);
+      console.log("Full response after registration:", response);
 
-      if (response.user && response.user.role === "user") {
+      const role = response?.user?.role || response?.user?.user?.role;
+      console.log("Extracted role:", role);
+
+      if (role === "user") {
+        localStorage.setItem("access_token", response.access_token);
+        console.log("Access token saved:", response.access_token);
         navigate("/user-profile");
       } else {
-        console.error("Unexpected role:", response.user?.role);
-      }
-
-      if (response.access_token) {
-        localStorage.setItem("access_token", response.access_token);
-        console.log(
-          "Access token saved:",
-          localStorage.getItem("access_token")
-        );
+        console.error("Unexpected role:", role);
       }
     } catch (err) {
-      console.error("Registration error:", err);
+      console.error("Error during registration:", err);
     }
   };
 
