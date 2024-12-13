@@ -6,6 +6,7 @@ import {
   fetchUserData,
   refreshToken,
   getAllUsers,
+  deleteUserById,
 } from "../services/authService";
 import { resetAuthState } from "./slices/authSlice";
 import axios from "axios";
@@ -180,6 +181,19 @@ export const initializeAuthState = createAsyncThunk(
     } catch (error) {
       // console.error("Ошибка восстановления сессии:", error);
       dispatch(resetAuthState());
+    }
+  }
+);
+
+export const deleteUser = createAsyncThunk(
+  "users/deleteUser",
+  async (id: string, thunkAPI) => {
+    try {
+      await deleteUserById(id);
+      return id; // Возвращаем ID удаленного пользователя
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      return thunkAPI.rejectWithValue("Failed to delete user");
     }
   }
 );
