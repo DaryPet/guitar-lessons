@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -45,7 +49,36 @@ export class UserService {
     return this.findById(id);
   }
 
+  // async deleteUser(id: number): Promise<void> {
+  //   await this.userRepository.delete(id);
+  // }
+  // async deleteUser(id: number): Promise<void> {
+  //   const user = await this.userRepository.findOneBy({ id });
+  //   if (!user) {
+  //     throw new NotFoundException(`User with ID ${id} not found`);
+  //   }
+
+  //   try {
+  //     await this.userRepository.delete(id);
+  //   } catch (error) {
+  //     console.error(`Error deleting user with ID ${id}:`, error);
+  //     throw new InternalServerErrorException('Error deleting user');
+  //   }
+  // }
   async deleteUser(id: number): Promise<void> {
+    console.log(`Deleting sessions for user ID: ${id}`);
+
+    // Удаляем связанные сессии из таблицы `session`
+    await this.userRepository.manager.query(
+      'DELETE FROM "session" WHERE "userId" = $1',
+      [id],
+    );
+
+    console.log(`Deleting user with ID: ${id}`);
+
+    // Удаляем пользователя
     await this.userRepository.delete(id);
+
+    console.log(`User with ID: ${id} deleted successfully`);
   }
 }
