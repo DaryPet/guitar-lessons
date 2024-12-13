@@ -93,6 +93,10 @@ export const fetchUserData = async () => {
     },
     withCredentials: true,
   });
+<<<<<<< Updated upstream
+=======
+  // console.log("Ответ от /auth/me:", response.data);
+>>>>>>> Stashed changes
   return response.data;
 };
 
