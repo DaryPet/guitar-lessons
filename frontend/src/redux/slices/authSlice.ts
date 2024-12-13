@@ -9,6 +9,7 @@ import {
   refreshUserToken,
   fetchAllUsers,
   initializeAuthState,
+  deleteUser,
 } from "../operations";
 import { toast } from "react-toastify";
 
@@ -210,6 +211,12 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
         state.status = "failed";
+      })
+      .addCase(deleteUser.fulfilled, (state, action) => {
+        state.users = state.users.filter((user) => user.id !== action.payload);
+      })
+      .addCase(deleteUser.rejected, (state, action) => {
+        state.error = action.payload as string;
       }),
 });
 
