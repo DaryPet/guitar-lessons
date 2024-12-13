@@ -93,10 +93,6 @@ export const fetchUserData = async () => {
     },
     withCredentials: true,
   });
-<<<<<<< Updated upstream
-=======
-  // console.log("Ответ от /auth/me:", response.data);
->>>>>>> Stashed changes
   return response.data;
 };
 
@@ -193,7 +189,6 @@ export const fetchUserByName = async (
 };
 
 export const deleteUserService = async (id: string) => {
-
   const access_token = localStorage.getItem("access_token");
   if (!access_token) {
     throw new Error("Access token is missing");

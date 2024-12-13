@@ -112,39 +112,15 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      // .addCase(registerUser.fulfilled, (state, action) => {
-      //   console.log("Full registration response:", action.payload);
-      //   if (action.payload.user) {
-      //     console.log("User role:", action.payload.user.role);
-      //   }
-      //   const { access_token } = action.payload;
-      //   state.user = action.payload.user;
-      //   state.token = access_token;
-      //   state.isLoggedIn = true;
-      //   state.loading = false;
-      //   state.status = "succeeded";
-      //   toast.success("You have successfully registered");
-      // })
       .addCase(registerUser.fulfilled, (state, action) => {
-        const userObject = action.payload.user; // Внешний `user`
-        const normalizedUser = userObject.user || userObject; // Убираем лишний уровень вложенности
-        const role = normalizedUser?.role;
-
-        if (!role) {
-          console.error(
-            "Role is missing. Normalized user object:",
-            normalizedUser
-          );
-        } else {
-          console.log("User role found:", role);
-        }
-
-        state.user = normalizedUser;
-        state.token = action.payload.access_token;
+        const { access_token } = action.payload;
+        state.user = action.payload.user;
+        state.token = access_token;
         state.isLoggedIn = true;
+        state.loading = false;
         state.status = "succeeded";
+        toast.success("You have successfully registered");
       })
-
       .addCase(registerUser.rejected, (state, action) => {
         state.status = "failed";
         state.loading = false;
@@ -193,7 +169,7 @@ const authSlice = createSlice({
         const errorMessage = action.payload as string;
         state.error = errorMessage;
         // \\\\\\\\\\\\\\\\\\\\\
-        // console.error("Logout error: ", action.error);
+        console.error("Logout error: ", action.error);
         toast.error(errorMessage);
       })
       .addCase(fetchAllUsers.pending, (state) => {
@@ -218,7 +194,6 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
-        // Удаляем пользователя из списка
         state.users = state.users.filter((user) => user.id !== action.payload);
         state.loading = false;
         state.status = "succeeded";
@@ -229,6 +204,7 @@ const authSlice = createSlice({
         state.error = action.payload as string;
         state.status = "failed";
         toast.error("Failed to delete user");
+      }),
 });
 
 export const { resetAuthState } = authSlice.actions;
