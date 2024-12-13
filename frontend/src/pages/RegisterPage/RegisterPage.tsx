@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../../redux/operations";
+import { fetchCurrentUser, registerUser } from "../../redux/operations";
 import styles from "../FormPage.module.css";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -39,13 +39,16 @@ const RegisterPage: React.FC = () => {
     try {
       const response = await dispatch(registerUser(values)).unwrap();
       console.log("Full response after registration:", response);
-
       const role = response?.user?.role || response?.user?.user?.role;
       console.log("Extracted role:", role);
 
       if (role === "user") {
         localStorage.setItem("access_token", response.access_token);
         console.log("Access token saved:", response.access_token);
+
+        // Обновляем состояние пользователя в Redux (если необходимо)
+        dispatch(fetchCurrentUser()); // Обновляем данные текущего пользователя
+
         navigate("/user-profile");
       } else {
         console.error("Unexpected role:", role);
