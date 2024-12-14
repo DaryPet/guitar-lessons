@@ -91,8 +91,7 @@ const authSlice = createSlice({
         state.loading = false;
         const errorMessage = action.payload as string;
         state.error = errorMessage;
-        // \\\\\\\\\\\\\\\\\\\\
-        console.error("Invalid data received:", action.payload);
+        // console.error("Invalid data received:", action.payload);
         toast.error(errorMessage);
       })
       .addCase(fetchCurrentUser.pending, (state) => {
@@ -145,7 +144,7 @@ const authSlice = createSlice({
         state.token = null;
         state.user = null;
         state.error = action.payload as string;
-        console.error("Refresh token error: ", action.error);
+        // console.error("Refresh token error: ", action.error);
         toast.error("Session expired. Please log in again.");
       })
       .addCase(logoutUser.pending, (state) => {
@@ -169,7 +168,7 @@ const authSlice = createSlice({
         const errorMessage = action.payload as string;
         state.error = errorMessage;
         // \\\\\\\\\\\\\\\\\\\\\
-        console.error("Logout error: ", action.error);
+        // console.error("Logout error: ", action.error);
         toast.error(errorMessage);
       })
       .addCase(fetchAllUsers.pending, (state) => {

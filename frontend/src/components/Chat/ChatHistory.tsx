@@ -51,7 +51,6 @@ const ChatHistory: React.FC = () => {
     const storedToken = localStorage.getItem("access_token");
 
     if (!storedToken) {
-      // console.error("Authentication token is missing.");
       setError("Authentication token is missing");
       return;
     }
@@ -65,13 +64,9 @@ const ChatHistory: React.FC = () => {
 
     setSocket(newSocket);
 
-    newSocket.on("connect", () => {
-      // console.log("Connected to WebSocket server");
-    });
+    newSocket.on("connect", () => {});
 
-    newSocket.on("disconnect", () => {
-      // console.log("Disconnected from WebSocket server");
-    });
+    newSocket.on("disconnect", () => {});
 
     newSocket.on("newMessage", (message: Message) => {
       setMessages((prevMessages) => {
@@ -100,7 +95,6 @@ const ChatHistory: React.FC = () => {
         }
       } catch (error) {
         setError("Error while fetching user data");
-        // console.error("Error while fetching users:", error);
       }
     };
 
@@ -143,7 +137,7 @@ const ChatHistory: React.FC = () => {
         setMessages(chatHistory);
       } catch (error) {
         setError(`Error while fetching chat history: ${error}`);
-        console.error("Error while fetching chat history:", error);
+        // console.error("Error while fetching chat history:", error);
       } finally {
         setLoading(false);
       }

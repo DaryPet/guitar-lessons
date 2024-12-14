@@ -32,12 +32,12 @@ interface BookingProps {
 Modal.setAppElement("#root");
 
 const getFormattedDateForMunich = (date: Date) => {
-  const munichOffset = 60; // CET: GMT+1
-  const summerOffset = 120; // CEST: GMT+2 (летнее время)
+  const munichOffset = 60;
+  const summerOffset = 120;
   const offset = date.getTimezoneOffset() === -60 ? munichOffset : summerOffset;
 
-  const munichDate = new Date(date.getTime() + offset * 60000); // Корректируем смещение
-  return munichDate.toISOString().split("T")[0]; // Приводим к формату YYYY-MM-DD
+  const munichDate = new Date(date.getTime() + offset * 60000);
+  return munichDate.toISOString().split("T")[0];
 };
 
 const Booking: React.FC<BookingProps> = ({ prefillData }) => {
@@ -138,7 +138,7 @@ const Booking: React.FC<BookingProps> = ({ prefillData }) => {
 
   return (
     <div className={styles.bookingSection} id="booking">
-      <h2>Book a Consultation</h2>
+      <h2>Book a Trial Lesson</h2>
       <form className={styles.bookingForm} onSubmit={formik.handleSubmit}>
         <div className={styles.inputGroup}>
           <label htmlFor="name">Name:</label>
@@ -194,10 +194,6 @@ const Booking: React.FC<BookingProps> = ({ prefillData }) => {
             }}
             value={date}
             selectRange={false}
-            // tileDisabled={({ date }) => {
-            //   const day = date.getDay();
-            //   return day === 0 || day === 6;
-            // }}
             tileDisabled={() => false}
           />
           {dateError && (
@@ -249,7 +245,7 @@ const Booking: React.FC<BookingProps> = ({ prefillData }) => {
           <p>
             Thank you, <strong>{formik.values.name}</strong>!
             <br />
-            You have successfully booked a consultation on{" "}
+            You have successfully booked a lesson on{" "}
             <strong>{date?.toISOString().split("T")[0]}</strong> at{" "}
             <strong>{selectedTime}</strong>.
             <br />

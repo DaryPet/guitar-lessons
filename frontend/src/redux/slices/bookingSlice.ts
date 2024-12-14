@@ -80,7 +80,6 @@ export const fetchAllBookings = createAsyncThunk<Booking[], string>(
   async (token, { rejectWithValue }) => {
     try {
       const bookings = await fetchAllBookingsApi(token);
-      // console.log("Fetched bookings:", bookings);
       return bookings;
     } catch (error) {
       return rejectWithValue("Error fetching all bookings");

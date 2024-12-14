@@ -25,8 +25,7 @@ export const registerUser = createAsyncThunk(
   ) => {
     try {
       const response = await register(name, username, email, password);
-      // \\\\\\\\\\\\\\\\\\\
-      console.log("Ответ от сервера:", response);
+      // console.log("Ответ от сервера:", response);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue("Error during registration");
@@ -105,18 +104,11 @@ export const refreshUserToken = createAsyncThunk(
       }
 
       const { access_token: updatedToken } = response.data;
-
-      // Сохраняем новый токен в localStorage
       localStorage.setItem("access_token", updatedToken);
-
-      // console.log(
-      //   "Токен успешно обновлён и сохранён в localStorage:",
-      //   updatedToken
-      // );
 
       return response.data;
     } catch (error) {
-      console.error("Ошибка при обновлении токена:", error);
+      // console.error("Ошибка при обновлении токена:", error);
       if (axios.isAxiosError(error) && error.response?.status === 401) {
         localStorage.removeItem("access_token");
       }

@@ -23,7 +23,6 @@ const Header: React.FC = () => {
           <div className="logoText">Lex Ivanenko</div>
         </a>
       </div>
-      {/* <Navigation /> */}
       <button className={styles.burger} onClick={toggleNav}>
         <FaBars />
       </button>

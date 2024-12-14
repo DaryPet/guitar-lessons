@@ -40,12 +40,10 @@
   position: relative;
   text-align: justify;
   line-height: 1.2;
-  max-width: 65ch; /* Оптимальная длина строки ~ 65-70 символов */
+  max-width: 65ch;
   margin-left: auto;
   margin-right: auto;
   hyphens: auto;
-  /* overflow-wrap: break-word; */
-  /* word-break: break-word; */
 }
 
 .description {
@@ -55,26 +53,7 @@
 .descriptionLast {
   font-size: 2rem;
   font-weight: 600;
-  /* padding: 40px; */
 }
-
-/* .description {
-  width: 100%;
-  font-size: 1.5rem;
-  color: white;
-  position: relative;
-  text-align: justify;
-}
-.descriptionLast {
-  width: 100%;
-  margin: 20px auto;
-  font-size: 2rem;
-  font-weight: 600;
-  color: white;
-  position: relative;
-  padding: 40px;
-  text-align: justify;
-} */
 .bookButton {
   background-color: #eb1f1f;
   color: #fff;

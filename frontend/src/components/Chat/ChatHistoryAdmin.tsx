@@ -68,11 +68,11 @@ const ChatHistoryAdmin: React.FC = () => {
     setSocket(newSocket);
 
     newSocket.on("connect", () => {
-      console.log("Connected to WebSocket server");
+      // console.log("Connected to WebSocket server");
     });
 
     newSocket.on("disconnect", () => {
-      console.log("Disconnected from WebSocket server");
+      // console.log("Disconnected from WebSocket server");
     });
 
     newSocket.on("newMessage", (message: Message) => {

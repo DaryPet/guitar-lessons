@@ -3,7 +3,6 @@ import styles from "./GifAnimation.module.css";
 
 const GifAnimation: React.FC = () => {
   useEffect(() => {
-    // Подключаем скрипт Tenor
     const script = document.createElement("script");
     script.src = "https://tenor.com/embed.js";
     script.async = true;

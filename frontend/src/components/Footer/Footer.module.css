@@ -58,9 +58,6 @@
   font-size: 0.95em;
   color: black;
 }
-/* .contactInfo a {
-  color: #ffffff;
-} */
 .contactInfo a:hover {
   color: rgb(193, 63, 63);
 }
