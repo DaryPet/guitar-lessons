@@ -100,7 +100,7 @@ export class ChatGateway
 
         receiverSocket.emit('newMessage', message);
       } else {
-        console.log('Receiver is not connected');
+        // console.log('Receiver is not connected');
       }
 
       client.emit('newMessage', message);

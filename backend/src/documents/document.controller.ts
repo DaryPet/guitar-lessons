@@ -63,7 +63,7 @@ export class DocumentController {
 
     let fileUrl: string;
 
-    console.log('Uploading file to Cloudinary...');
+    // console.log('Uploading file to Cloudinary...');
     try {
       fileUrl = await saveFileToCloudinary(file, file.originalname);
     } catch (error) {
@@ -71,7 +71,7 @@ export class DocumentController {
       throw new Error('Failed to upload file to Cloudinary');
     }
 
-    console.log('File URL:', fileUrl);
+    // console.log('File URL:', fileUrl);
 
     return await this.documentService.create(
       createDocumentDto,
@@ -192,7 +192,6 @@ export class DocumentController {
       throw new NotFoundException('Document not found');
     }
 
-    // Проверка прав пользователя на доступ к документу
     if (user.role !== 'admin' && document.uploadedBy.id !== user.id) {
       throw new ForbiddenException(
         'Access denied. You can only download your own documents.',
@@ -200,24 +199,18 @@ export class DocumentController {
     }
 
     try {
-      // Получаем тип MIME на основе расширения файла
       const mimeType =
         mime.lookup(document.filename) || 'application/octet-stream';
-
-      // Используем axios для загрузки файла по URL, который возвращает Cloudinary
       const response = await axios.get(document.filepath, {
         responseType: 'stream',
       });
 
-      // Устанавливаем заголовки для корректной обработки любого файла
       res.setHeader('Content-Type', mimeType);
       res.setHeader(
         'Content-Disposition',
         `attachment; filename="${document.filename}"`,
       );
 
-      // Передаем поток данных напрямую в ответ
-      // response.data.pipe(res);
       (response.data as NodeJS.ReadableStream).pipe(res);
     } catch (error) {
       console.error('Error downloading file from Cloudinary:', error);
