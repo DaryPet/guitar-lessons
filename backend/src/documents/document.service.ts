@@ -27,7 +27,6 @@ export class DocumentService {
     userId: number,
     originalName: string,
   ): Promise<Document> {
-    // const filename = basename(fileUrl);
     const targetUser = await this.userService.findById(userId);
     if (!targetUser) {
       throw new NotFoundException('Target user not found');

@@ -32,22 +32,22 @@ export class AuthService {
   async validateUser(username: string, pass: string): Promise<any> {
     const user = await this.userService.findByUsername(username);
     if (!user) {
-      console.log('Пользователь не найден');
+      // console.log('Пользователь не найден');
       return null;
     }
-    console.log('Найден пользователь:', user);
+    // console.log('Найден пользователь:', user);
 
     const isPasswordMatching = await bcrypt.compare(pass, user.password);
-    console.log('Результат сравнения паролей:', username, isPasswordMatching);
+    // console.log('Результат сравнения паролей:', username, isPasswordMatching);
 
     if (!isPasswordMatching) {
-      console.log('Пароль не совпадает');
+      // console.log('Пароль не совпадает');
       return null;
     }
-    console.log('Успешная проверка пользователя');
+    // console.log('Успешная проверка пользователя');
 
     const { password: _password, ...result } = user;
-    console.log('Данные пользователя без пароля:', result);
+    // console.log('Данные пользователя без пароля:', result);
     return result;
   }
 
@@ -59,7 +59,7 @@ export class AuthService {
     });
 
     await this.sessionRepository.save(session);
-    console.log('Сохраненная сессия:', session);
+    // console.log('Сохраненная сессия:', session);
     return {
       access_token: newSession.accessToken,
       refresh_token: newSession.refreshToken,
@@ -79,8 +79,8 @@ export class AuthService {
         role: role,
       });
 
-      console.log('Созданный пользователь:', user);
-      console.log('User ID:', user.id);
+      // console.log('Созданный пользователь:', user);
+      // console.log('User ID:', user.id);
       const {
         accessToken,
         refreshToken,
@@ -88,9 +88,9 @@ export class AuthService {
         refreshTokenValidUntil,
       } = this.createSession(user);
 
-      console.log('Токены:', accessToken, refreshToken);
-      console.log('AccessTokenValidUntil:', accessTokenValidUntil);
-      console.log('RefreshTokenValidUntil:', refreshTokenValidUntil);
+      // console.log('Токены:', accessToken, refreshToken);
+      // console.log('AccessTokenValidUntil:', accessTokenValidUntil);
+      // console.log('RefreshTokenValidUntil:', refreshTokenValidUntil);
       if (!user.id) {
         console.error('Ошибка: user.id не существует!');
         throw new Error('User ID is missing');
@@ -102,9 +102,9 @@ export class AuthService {
         accessTokenValidUntil,
         refreshTokenValidUntil,
       });
-      console.log('Сессия:', session);
+      // console.log('Сессия:', session);
       await this.sessionRepository.save(session);
-      console.log('Сессия для пользователя сохранена:', session);
+      // console.log('Сессия для пользователя сохранена:', session);
 
       return {
         access_token: accessToken,
@@ -119,14 +119,14 @@ export class AuthService {
   }
 
   async refreshUserSession(sessionId: number, refreshToken: string) {
-    console.log(`SessionId: ${sessionId}, RefreshToken: ${refreshToken}`);
-    console.log(
-      `Пытаемся найти сессию с id: ${sessionId} и refreshToken: ${refreshToken}`,
-    );
+    // console.log(`SessionId: ${sessionId}, RefreshToken: ${refreshToken}`);
+    // console.log(
+    //   `Пытаемся найти сессию с id: ${sessionId} и refreshToken: ${refreshToken}`,
+    // );
     const session = await this.sessionRepository.findOne({
       where: { id: sessionId, refreshToken },
     });
-    console.log('Found session:', session);
+    // console.log('Found session:', session);
     if (!session) {
       console.error('Сессия не найдена или неверный refreshToken');
       throw new Error('Session not found');
@@ -139,25 +139,21 @@ export class AuthService {
       throw new Error('Session token expired');
     }
 
-    // ЗАГРУЗКА ПОЛЬЗОВАТЕЛЯ ДЛЯ СОЗДАНИЯ НОВОЙ СЕССИИ
     const user = await this.userService.findById(session.userId);
     if (!user) {
       console.error('Пользователь не найден для userId:', session.userId);
       throw new Error('User not found');
     }
 
-    // Создаем новую сессию
     const newSession = this.createSession(user);
-    console.log('Создана новая сессия:', newSession);
-
-    // Обновляем сессию с новыми токенами
+    // console.log('Создана новая сессия:', newSession);
     session.accessToken = newSession.accessToken;
     session.refreshToken = newSession.refreshToken;
     session.accessTokenValidUntil = newSession.accessTokenValidUntil;
     session.refreshTokenValidUntil = newSession.refreshTokenValidUntil;
 
     await this.sessionRepository.save(session);
-    console.log('Обновленная сессия:', session);
+    // console.log('Обновленная сессия:', session);
 
     return {
       accessToken: session.accessToken,
@@ -165,68 +161,30 @@ export class AuthService {
       id: session.id,
     };
   }
-
-  // async logout(sessionId: number, refreshToken: string) {
-  //   console.log(
-  //     `Пытаемся найти и удалить сессию с id: ${sessionId} и refreshToken: ${refreshToken}`,
-  //   );
-
-  //   try {
-  //     // Сначала ищем сессию по sessionId, чтобы упростить поиск
-  //     const session = await this.sessionRepository.findOne({
-  //       where: { id: sessionId },
-  //     });
-
-  //     // Проверяем, что сессия найдена
-  //     if (!session) {
-  //       console.error('Сессия не найдена по id:', sessionId);
-  //       throw new Error('Session not found or already deleted');
-  //     }
-
-  //     // Проверяем совпадение refreshToken
-  //     if (session.refreshToken !== refreshToken) {
-  //       console.error('RefreshToken не совпадает для сессии:', sessionId);
-  //       throw new Error('Invalid refresh token');
-  //     }
-
-  //     // Удаляем сессию
-  //     await this.sessionRepository.delete({ id: sessionId });
-  //     console.log('Сессия успешно удалена');
-  //   } catch (error) {
-  //     console.error('Ошибка при удалении сессии:', error);
-  //     throw new Error('Ошибка при удалении сессии');
-  //   }
-  // }
   async logout(sessionId: number, refreshToken: string) {
-    console.log(
-      `Запрос на логаут: sessionId: ${sessionId}, refreshToken: ${refreshToken}`,
-    );
+    // console.log(
+    //   `Запрос на логаут: sessionId: ${sessionId}, refreshToken: ${refreshToken}`,
+    // );
 
     try {
-      // НАХОДИМ СЕССИЮ ПО sessionId
       const session = await this.sessionRepository.findOne({
         where: { id: sessionId },
       });
-      console.log('Токен из базы данных:', session.refreshToken);
-      console.log('Токен из запроса:', refreshToken);
+      // console.log('Токен из базы данных:', session.refreshToken);
+      // console.log('Токен из запроса:', refreshToken);
 
-      // ПРОВЕРЯЕМ, ЧТО СЕССИЯ НАЙДЕНА
       if (!session) {
         console.error('Сессия не найдена по id:', sessionId);
         throw new Error('Session not found or already deleted');
       }
-
-      // ПРОВЕРЯЕМ СОВПАДЕНИЕ refreshToken
-      console.log('Токен из базы данных:', session.refreshToken);
-      console.log('Токен из запроса:', refreshToken);
+      // console.log('Токен из базы данных:', session.refreshToken);
+      // console.log('Токен из запроса:', refreshToken);
       if (session.refreshToken.trim() !== refreshToken.trim()) {
         console.error('RefreshToken не совпадает для сессии:', sessionId);
         throw new Error('Invalid refresh token');
       }
-
-      // УДАЛЕНИЕ СЕССИИ
       await this.sessionRepository.delete({ id: sessionId });
-      console.log('Сессия успешно удалена');
+      // console.log('Сессия успешно удалена');
     } catch (error) {
       console.error('Ошибка при удалении сессии:', error.message);
       throw new Error('Ошибка при удалении сессии');
@@ -242,19 +200,18 @@ export class AuthService {
     const { password: _password, ...result } = currentUser;
     return result;
   }
-  // Новый метод для поиска сессии по ID
   async getSessionById(sessionId: number): Promise<Session> {
-    console.log(`Ищем сессию по id: ${sessionId}`);
+    // console.log(`Ищем сессию по id: ${sessionId}`);
     const session = await this.sessionRepository.findOne({
       where: { id: sessionId },
     });
 
     if (!session) {
-      console.error('Сессия не найдена с id:', sessionId);
+      // console.error('Сессия не найдена с id:', sessionId);
       throw new Error('Session not found');
     }
 
-    console.log('Найдена сессия:', session);
+    // console.log('Найдена сессия:', session);
     return session;
   }
 }
