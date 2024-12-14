@@ -109,7 +109,7 @@ export const downloadDocumentApi = async (
 
     window.URL.revokeObjectURL(downloadUrl);
   } catch (error) {
-    console.error("Error while downloading document:", error);
+    // console.error("Error while downloading document:", error);
     throw error;
   }
 };

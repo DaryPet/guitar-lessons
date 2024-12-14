@@ -14,7 +14,7 @@ export const fetchChatHistory = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      console.error("Failed to fetch chat history:", error);
+      // console.error("Failed to fetch chat history:", error);
       return rejectWithValue("Failed to fetch chat history");
     }
   }
@@ -38,7 +38,7 @@ export const sendMessage = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      console.error("Failed to send message:", error);
+      // console.error("Failed to send message:", error);
       return rejectWithValue("Failed to send message");
     }
   }

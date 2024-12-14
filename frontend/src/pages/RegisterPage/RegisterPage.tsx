@@ -38,16 +38,14 @@ const RegisterPage: React.FC = () => {
   const handleSubmit = async (values: RegisterValues): Promise<void> => {
     try {
       const response = await dispatch(registerUser(values)).unwrap();
-      console.log("Full response after registration:", response);
+      // console.log("Full response after registration:", response);
       const role = response?.user?.role || response?.user?.user?.role;
-      console.log("Extracted role:", role);
+      // console.log("Extracted role:", role);
 
       if (role === "user") {
         localStorage.setItem("access_token", response.access_token);
-        console.log("Access token saved:", response.access_token);
-
-        // Обновляем состояние пользователя в Redux (если необходимо)
-        dispatch(fetchCurrentUser()); // Обновляем данные текущего пользователя
+        // console.log("Access token saved:", response.access_token);
+        dispatch(fetchCurrentUser());
 
         navigate("/user-profile");
       } else {

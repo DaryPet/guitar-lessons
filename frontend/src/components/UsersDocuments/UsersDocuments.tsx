@@ -23,7 +23,7 @@ const UsersDocuments: React.FC = () => {
   const loading = useSelector(selectDocumentLoading);
   const error = useSelector(selectDocumentError);
   const successMessage = useSelector(selectDocumentSuccess);
-  const [userName, setUserName] = useState<string>("");
+  const [userName] = useState<string>("");
 
   useEffect(() => {
     if (token && userId) {
@@ -82,7 +82,7 @@ const handleDownload = async (url: string, filename: string) => {
     window.URL.revokeObjectURL(downloadUrl);
     toast.success("Document downloaded successfully", { autoClose: 2000 });
   } catch (error) {
-    console.error("Error downloading document:", error);
+    // console.error("Error downloading document:", error);
     toast.error("Failed to download document. Please try again later.", {
       autoClose: 2000,
     });

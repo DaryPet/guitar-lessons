@@ -23,7 +23,6 @@ const notesData = [
     imageUrl: "https://example.com/images/note4.jpg",
     fileUrl: "https://example.com/files/note4.pdf",
   },
-  // Добавьте еще данные о нотах, если нужно
 ];
 
 export default notesData;
