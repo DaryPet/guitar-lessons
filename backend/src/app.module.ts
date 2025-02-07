@@ -9,8 +9,8 @@ import { DocumentModule } from './documents/document.module';
 import { CloudinaryConfigService } from './config/cloudinary.config';
 import { ChatModule } from './chat/chat.module';
 
-console.log('Загрузка AppModule');
-console.log('DATABASE_URL:', process.env.DATABASE_URL);
+// console.log('Загрузка AppModule');
+// console.log('DATABASE_URL:', process.env.DATABASE_URL);
 
 @Module({
   imports: [

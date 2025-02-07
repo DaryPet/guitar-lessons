@@ -13,6 +13,7 @@ class SocketIoAdapter extends IoAdapter {
         origin: [
           'http://localhost:3000',
           'https://guitar-lessons-px2t.vercel.app',
+          'https://guitarlessons-munich.com',
         ],
         credentials: true,
       },
@@ -28,13 +29,21 @@ async function bootstrap() {
   app.use(cookieParser());
 
   app.enableCors({
-    origin: ['http://localhost:3000', 'https://guitar-lessons-px2t.vercel.app'],
+    origin: [
+      'http://localhost:3000',
+      'https://guitar-lessons-px2t.vercel.app',
+      'https://guitarlessons-munich.com',
+    ],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   });
 
   app.useWebSocketAdapter(new SocketIoAdapter(app));
+
+  // console.log('DATABASE_URL:', process.env.DATABASE_URL);
+  // console.log('JWT_SECRET:', process.env.JWT_SECRET);
+  // console.log('PORT:', process.env.PORT || 3001);
 
   await app.listen(process.env.PORT || 3001);
 }
