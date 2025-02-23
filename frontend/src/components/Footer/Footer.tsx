@@ -96,7 +96,7 @@ const Footer: React.FC = () => {
         </div>
       </div>
       <div className={styles.footerBottom}>
-        <p>
+        <p className={styles.rights}>
           &copy; {new Date().getFullYear()} GuitarLessons. All rights reserved.
         </p>
         <ul className={styles.footerLinks}>

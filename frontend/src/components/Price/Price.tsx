@@ -48,16 +48,12 @@ const Pricing: React.FC<PricingProps> = () => {
               <span>Monthly </span>rental
             </p>
             <p className={styles.items_description}>
-              Don't have a instrument to practice home?
+              Don't have an instrument to practice home?
             </p>
             <p className={styles.items_price}>€50</p>
-            {/* <p className={styles.items_description}>
-              one on one lesson 45 min:
-            </p>
-            Monthly rent: <strong>€50</strong> */}
           </li>
           <li className={styles.items}>
-            <div className={styles.discountRibbon}> 3 months - €100</div>
+            <div className={styles.discountRibbonGuitar}> 3 months - €100</div>
             <p className={styles.items_name}>
               <span>10-lesson</span> card holders ONLY.
             </p>

@@ -30,8 +30,6 @@
   padding: 0;
 }
 .list_term {
-  /* display: flex;
-  flex-wrap: wrap; */
   justify-content: center;
   list-style-type: none;
   padding: 0;
@@ -43,6 +41,7 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
+  font-size: 1.5rem;
 }
 
 .items {
@@ -51,31 +50,46 @@
   border: 2px solid #eb1f1f;
   border-radius: 15px;
   padding: 20px;
-  width: 250px;
+  width: 300px;
   min-height: 200px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease-in-out;
-
   text-align: center;
   margin: 0;
-  margin-bottom: 24px;
+  margin-bottom: 45px;
 }
 .discountRibbon {
   position: absolute;
-  top: 250px;
-  left: 130px;
+  top: 230px;
+  left: 120px;
   background-color: #eb1f1f;
   color: #fff;
   padding: 10px;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
+  transform: rotate(-15deg);
+  z-index: 1;
+}
+.discountRibbonGuitar {
+  position: absolute;
+  top: 350px;
+  left: 140px;
+  background-color: #eb1f1f;
+  color: #fff;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 1.5rem;
   transform: rotate(-15deg);
   z-index: 1;
 }
 .items_name {
-  font-size: 1.5rem;
+  font-size: 2rem;
+  margin: 0;
+}
+.items_description {
+  font-size: 1.7rem;
   margin: 0;
 }
 .items_name span {
