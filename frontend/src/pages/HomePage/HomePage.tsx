@@ -6,6 +6,7 @@ import Testimonials from "../../components/Testimonials/Testimonials";
 import { useLocation } from "react-router-dom";
 import Booking from "../../components/Booking/Booking";
 import VideoSection from "../../components/Video/VideoSection";
+import Price from "../../components/Price/Price";
 
 const HomePage: React.FC = () => {
   const location = useLocation();
@@ -29,6 +30,9 @@ const HomePage: React.FC = () => {
       </section>
       <section id="team" className={styles.section}>
         <VideoSection />
+      </section>
+      <section id="price" className={styles.section}>
+        <Price />
       </section>
       <section id="testimonials" className={styles.section}>
         <Testimonials />

@@ -1,0 +1,22 @@
+.container {
+  text-align: center;
+  margin-top: 50px;
+  position: relative;
+}
+
+.link {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 34px;
+  color: #fff;
+  text-decoration: none;
+  z-index: 10;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}

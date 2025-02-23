@@ -9,6 +9,8 @@ import Booking from "./components/Booking/Booking";
 import Loader from "../src/components/Loader/Loader";
 import ChatHistory from "./components/Chat/ChatHistory";
 import ChatHistoryAdmin from "./components/Chat/ChatHistoryAdmin";
+import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService/TermsOfService";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
@@ -38,6 +40,8 @@ export default function App() {
         <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route
               path="/login"
               element={

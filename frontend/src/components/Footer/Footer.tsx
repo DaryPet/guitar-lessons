@@ -31,6 +31,9 @@ const Footer: React.FC = () => {
               <a href="/#testimonials">Testimonials</a>
             </li>
             <li>
+              <a href="/#prices">Prices</a>
+            </li>
+            <li>
               <a href="/booking">Book a Lesson</a>
             </li>
           </ul>

@@ -19,7 +19,8 @@ h6 {
 .container {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0;
+  /* padding: 0; */
+  paddin: 0 80px;
   background-color: rgb(32, 30, 30);
 }
 

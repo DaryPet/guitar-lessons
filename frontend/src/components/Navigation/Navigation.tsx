@@ -30,7 +30,12 @@ const Navigation: React.FC<NavigationProps> = ({ isOpen, toggleNav }) => {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
-
+  const handleLinkClick = (path: string) => {
+    // Сбросить прокрутку на начало страницы при переходе на другую страницу
+    window.scrollTo(0, 0);
+    navigate(path);
+    toggleNav();
+  };
   return (
     <nav className={`${styles.nav} ${isOpen ? styles.navOpen : ""}`}>
       <ul className={styles.navList}>
@@ -46,6 +51,14 @@ const Navigation: React.FC<NavigationProps> = ({ isOpen, toggleNav }) => {
         </li>
         <li className={styles.navItem}>
           <button
+            onClick={() => handleScroll("prices")}
+            className={styles.link}
+          >
+            Prices
+          </button>
+        </li>
+        <li className={styles.navItem}>
+          <button
             onClick={() => handleScroll("testimonials")}
             className={styles.link}
           >
@@ -53,7 +66,11 @@ const Navigation: React.FC<NavigationProps> = ({ isOpen, toggleNav }) => {
           </button>
         </li>
         <li className={styles.navItem}>
-          <Link to="/booking" className={styles.link} onClick={toggleNav}>
+          <Link
+            to="/booking"
+            className={styles.link}
+            onClick={() => handleLinkClick("/booking")}
+          >
             Booking
           </Link>
         </li>

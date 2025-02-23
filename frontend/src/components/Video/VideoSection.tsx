@@ -12,11 +12,20 @@ const VideoSection: React.FC = () => {
     [key: number]: boolean;
   }>({});
 
+  const [currentVideo, setCurrentVideo] = useState<number | null>(null);
+
   const handlePlayVideo = (index: number) => {
+    if (currentVideo !== null && currentVideo !== index) {
+      setPlayingVideos((prev) => ({
+        ...prev,
+        [currentVideo]: false,
+      }));
+    }
     setPlayingVideos((prev) => ({
       ...prev,
       [index]: true,
     }));
+    setCurrentVideo(index);
   };
 
   return (
